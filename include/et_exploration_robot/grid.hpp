@@ -14,19 +14,19 @@ class Grid {
   Grid() {}
   ~Grid() {}
 
-  void setGridState(uint32_t height, uint32_t width);
+  void setGridState(const uint32_t &height, const uint32_t &width);
 
   std::pair<uint32_t, uint32_t> getGridState();
 
-  void updateProbability(int8_t updatedProbability);
+  void updateProbability(const int8_t &updatedProbability);
 
   int8_t getProbability();
 
-  void setFrontierStatus(bool status);
+  void setFrontierStatus(const bool &status);
 
   bool getFrontierStatus();
 
-  void setClusterNumber(int num);
+  void setClusterNumber(const int &num);
 
   int getClusterNumber();
 };
