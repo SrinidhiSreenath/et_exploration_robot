@@ -4,12 +4,12 @@
 // ROS Headers
 #include <ros/ros.h>
 
-// Grid Class Header file
-#include "et_exploration_robot/grid.hpp"
-
 // CPP Headers
 #include <cstdint>
 #include <utility>
+
+// Grid Class Header file
+#include "et_exploration_robot/grid.hpp"
 
 TEST(GridTest, testSettersAndGetterFunctions) {
   Grid cell;

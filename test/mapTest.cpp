@@ -4,13 +4,14 @@
 // ROS Headers
 #include <ros/ros.h>
 
-// Class header files
-#include "et_exploration_robot/grid.hpp"
-#include "et_exploration_robot/map.hpp"
-
 // CPP Headers
 #include <cstdint>
 #include <utility>
+#include <vector>
+
+// Class header files
+#include "et_exploration_robot/grid.hpp"
+#include "et_exploration_robot/map.hpp"
 
 class MapTest : public ::testing::Test {
  public:

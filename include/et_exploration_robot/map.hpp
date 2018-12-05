@@ -6,13 +6,13 @@
 #include <nav_msgs/OccupancyGrid.h>
 #include <ros/ros.h>
 
-// Grid class header file
-#include "et_exploration_robot/grid.hpp"
-
 // CPP Headers
 #include <cstdint>
 #include <utility>
 #include <vector>
+
+// Grid class header file
+#include "et_exploration_robot/grid.hpp"
 
 class Map {
  private:

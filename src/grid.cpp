@@ -1,9 +1,9 @@
-// Grid Class Header file
-#include "et_exploration_robot/grid.hpp"
-
 // CPP Headers
 #include <cstdint>
 #include <utility>
+
+// Grid Class Header file
+#include "et_exploration_robot/grid.hpp"
 
 Grid::Grid() {}
 Grid::~Grid() {}
