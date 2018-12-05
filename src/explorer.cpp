@@ -23,4 +23,6 @@ void Explorer::processMap(const nav_msgs::OccupancyGrid::ConstPtr &msg) {}
 
 void Explorer::determineFrontiers() {}
 
+std::vector<std::pair<uint32_t, uint32_t>> getFrontiers() {}
+
 void Explorer::explore() {}

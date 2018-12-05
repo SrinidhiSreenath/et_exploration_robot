@@ -42,6 +42,8 @@ class Explorer {
 
   void processMap(const nav_msgs::OccupancyGrid::ConstPtr &msg);
 
+  std::vector<std::pair<uint32_t, uint32_t>> getFrontiers();
+
   void explore();
 };
 
