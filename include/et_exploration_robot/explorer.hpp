@@ -1,7 +1,12 @@
+#ifndef INCLUDE_ET_EXPLORATION_ROBOT_EXPLORER_HPP_
+#define INCLUDE_ET_EXPLORATION_ROBOT_EXPLORER_HPP_
+
 // ROS Headers
 #include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Twist.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <ros/ros.h>
+#include <visualization_msgs/MarkerArray.h>
 
 // Class header files
 #include "et_exploration_robot/grid.hpp"
@@ -39,3 +44,5 @@ class Explorer {
 
   void explore();
 };
+
+#endif  //  INCLUDE_ET_EXPLORATION_ROBOT_EXPLORER_HPP_

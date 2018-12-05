@@ -1,3 +1,6 @@
+#ifndef INCLUDE_ET_EXPLORATION_ROBOT_MAP_HPP_
+#define INCLUDE_ET_EXPLORATION_ROBOT_MAP_HPP_
+
 // ROS Headers
 #include <geometry_msgs/Pose.h>
 #include <nav_msgs/OccupancyGrid.h>
@@ -30,8 +33,8 @@ class Map {
   clusterFrontierGrids();
 
  public:
-  Map() {}
-  ~Map() {}
+  Map();
+  ~Map();
 
   void initialize(const nav_msgs::OccupancyGrid::ConstPtr &msg);
 
@@ -42,3 +45,5 @@ class Map {
   std::vector<std::pair<float, float>> gridToCartesian(
       const std::vector<std::pair<uint32_t, uint32_t>> &frontiers);
 };
+
+#endif  //  INCLUDE_ET_EXPLORATION_ROBOT_MAP_HPP_

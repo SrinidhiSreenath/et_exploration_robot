@@ -1,3 +1,6 @@
+#ifndef INCLUDE_ET_EXPLORATION_ROBOT_GRID_HPP_
+#define INCLUDE_ET_EXPLORATION_ROBOT_GRID_HPP_
+
 // CPP Headers
 #include <cstdint>
 #include <utility>
@@ -11,8 +14,8 @@ class Grid {
   int clusterNumber_;
 
  public:
-  Grid() {}
-  ~Grid() {}
+  Grid();
+  ~Grid();
 
   void setGridState(const uint32_t &height, const uint32_t &width);
 
@@ -30,3 +33,5 @@ class Grid {
 
   int getClusterNumber();
 };
+
+#endif  //  INCLUDE_ET_EXPLORATION_ROBOT_GRID_HPP_
