@@ -192,3 +192,13 @@ target_link_libraries(${PROJECT_NAME}_node
 #############
 ## Testing ##
 #############
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+
+  add_rostest_gtest(explorerTests test/explorerTests.launch test/mapTest.cpp test/main.cpp)
+  
+  target_link_libraries(explorerTests ${catkin_LIBRARIES})
+  
+  add_dependencies(explorerTests ${PROJECT_NAME}_node ${catkin_EXPORTED_TARGETS})
+endif()
