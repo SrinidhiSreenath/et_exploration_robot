@@ -1,0 +1,25 @@
+./test/main.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./test/main.cpp
+./test/mapTest.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./test/mapTest.cpp
+./test/explorerTest.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+./test/explorerTest.cpp:55:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+Done processing ./test/explorerTest.cpp
+./test/gridTest.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./test/gridTest.cpp
+./src/map.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./src/map.cpp
+./src/explorer.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./src/explorer.cpp
+./src/main.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./src/main.cpp
+./src/grid.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./src/grid.cpp
+./include/et_exploration_robot/map.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./include/et_exploration_robot/map.hpp
+./include/et_exploration_robot/grid.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./include/et_exploration_robot/grid.hpp
+./include/et_exploration_robot/explorer.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Done processing ./include/et_exploration_robot/explorer.hpp
+Total errors found: 12
+
