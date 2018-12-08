@@ -6,6 +6,7 @@
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <ros/ros.h>
+#include <tf/transform_listener.h>
 #include <visualization_msgs/MarkerArray.h>
 
 // CPP Headers
@@ -23,26 +24,33 @@ class Explorer {
   ros::Subscriber mapSub_;
   ros::Publisher velocityPub_;
   ros::Publisher markerPub_;
-  geometry_msgs::Twist msg;
+  geometry_msgs::Twist vel_;
+  tf::TransformListener poseListener_;
 
   Map myMap;
   bool mapInit_ = false;
-  std::vector<std::pair<uint32_t, uint32_t>> frontiers;
+  std::vector<std::pair<uint32_t, uint32_t>> frontiers_;
 
   uint32_t shape = visualization_msgs::Marker::CUBE;
 
+  void processMap(const nav_msgs::OccupancyGrid::ConstPtr &map);
+
   void revolve();
 
-  void determineFrontiers();
+  void determineFrontiers(
+      const std::vector<std::vector<std::pair<uint32_t, uint32_t>>>
+          &frontierClusters);
+
+  void visualizeFrontiers(
+      const std::vector<std::pair<float, float>> &frontierXY);
+
+  std::pair<float, float> closestFrontier(
+      const std::vector<std::pair<float, float>> &frontierXY);
 
  public:
   explicit Explorer(ros::NodeHandle nh);
 
   ~Explorer();
-
-  void processMap(const nav_msgs::OccupancyGrid::ConstPtr &msg);
-
-  std::vector<std::pair<uint32_t, uint32_t>> getFrontiers();
 
   void explore();
 };
