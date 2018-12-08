@@ -16,14 +16,14 @@
 
 class Map {
  private:
-  uint32_t mapWidth;
-  uint32_t mapHeight;
-  float mapResolution;
+  uint32_t mapWidth_;
+  uint32_t mapHeight_;
+  float mapResolution_;
 
-  geometry_msgs::Pose mapOrigin;
-  geometry_msgs::Pose gridOriginCellPose;
+  geometry_msgs::Pose mapOrigin_;
+  geometry_msgs::Pose gridOriginCellPose_;
 
-  std::vector<std::vector<Grid>> occupancyGrid;
+  std::vector<std::vector<Grid>> occupancyGrid_;
 
   bool isFrontierGrid(const std::pair<uint32_t, uint32_t> &gridState);
 
@@ -36,9 +36,9 @@ class Map {
   Map();
   ~Map();
 
-  void initialize(const nav_msgs::OccupancyGrid::ConstPtr &msg);
+  void initialize(const nav_msgs::OccupancyGrid::ConstPtr &map);
 
-  void updateOccupancyMap(const nav_msgs::OccupancyGrid::ConstPtr &msg);
+  void updateOccupancyMap(const nav_msgs::OccupancyGrid::ConstPtr &map);
 
   std::vector<std::vector<std::pair<uint32_t, uint32_t>>> getFrontierClusters();
 
