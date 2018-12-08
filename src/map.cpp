@@ -109,13 +109,13 @@ Map::clusterFrontierGrids() {
 }
 
 void Map::initialize(const nav_msgs::OccupancyGrid::ConstPtr &map) {
-  mapOrigin_ = msg->info.origin;
-  mapHeight_ = msg->info.height;
-  mapWidth_ = msg->info.width;
-  mapResolution_ = msg->info.resolution;
+  mapOrigin_ = map->info.origin;
+  mapHeight_ = map->info.height;
+  mapWidth_ = map->info.width;
+  mapResolution_ = map->info.resolution;
   ROS_INFO_STREAM("Height: " << mapHeight_ << " Width: " << mapWidth_
                              << " Res: " << mapResolution_);
-  gridOriginCellPose_ = msg->info.origin;
+  gridOriginCellPose_ = map->info.origin;
 
   size_t iter = 0;
 
@@ -124,7 +124,7 @@ void Map::initialize(const nav_msgs::OccupancyGrid::ConstPtr &map) {
     for (size_t j = 0; j < mapWidth_; j++) {
       Grid cell;
       cell.setGridState(i, j);
-      cell.updateProbability(msg->data[iter]);
+      cell.updateProbability(map->data[iter]);
       row.push_back(cell);
       iter++;
     }
@@ -133,16 +133,16 @@ void Map::initialize(const nav_msgs::OccupancyGrid::ConstPtr &map) {
 }
 
 void Map::updateOccupancyMap(const nav_msgs::OccupancyGrid::ConstPtr &map) {
-  if (mapWidth_ == msg->info.width && mapHeight_ == msg->info.height) {
+  if (mapWidth_ == map->info.width && mapHeight_ == map->info.height) {
     size_t iter = 0;
     for (size_t i = 0; i < mapHeight_; i++) {
       for (size_t j = 0; j < mapWidth_; j++) {
-        occupancyGrid_[i][j].updateProbability(msg->data[iter]);
+        occupancyGrid_[i][j].updateProbability(map->data[iter]);
         iter++;
       }
     }
   } else {
-    initialize(msg);
+    initialize(map);
   }
 }
 
