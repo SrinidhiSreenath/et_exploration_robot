@@ -9,7 +9,7 @@ class Grid {
  private:
   uint32_t gridHeight_;
   uint32_t gridWidth_;
-  int8_t OccupancyProbability_;
+  int8_t occupancyProbability_;
   bool isFrontierCell_;
   int clusterNumber_;
 
