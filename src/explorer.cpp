@@ -1,5 +1,7 @@
 // ROS Headers
+#include <actionlib/client/simple_action_client.h>
 #include <geometry_msgs/Pose.h>
+#include <move_base_msgs/MoveBaseAction.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <ros/ros.h>
 
@@ -18,9 +20,9 @@
 Explorer::Explorer(ros::NodeHandle nh) : n_(nh) {
   velocityPub_ =
       n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 50);
-  markerPub_ =
-      n_.advertise<visualization_msgs::MarkerArray>("visualization_marker", 10);
   mapSub_ = n_.subscribe("/map", 50, &Explorer::processMap, this);
+  markerPub_ = n_.advertise<visualization_msgs::MarkerArray>(
+      "/visualization_marker_array", 10);
 }
 
 Explorer::~Explorer() {}
@@ -44,7 +46,7 @@ void Explorer::revolve() {
   ros::Time revolveTime = current + ros::Duration(10.0);
 
   while (ros::Time::now() < revolveTime && ros::ok()) {
-    // ROS_INFO_STREAM("Current time: " << ros::Time::now());
+    ROS_INFO_STREAM("Current time: " << ros::Time::now());
     velocityPub_.publish(vel_);
   }
   vel_.angular.z = 0.0;
@@ -78,7 +80,7 @@ void Explorer::visualizeFrontiers(
   visualization_msgs::MarkerArray frontiersToViz;
   frontiersToViz.markers.resize(frontiers_.size());
 
-  ROS_INFO_STREAM("Starting marker block");
+  ROS_INFO_STREAM("Frontiers: " << frontiersXY.size());
 
   for (size_t it = 0; it < frontiersXY.size(); it++) {
     // Set the frame ID and timestamp.  See the TF tutorials for information
@@ -179,6 +181,33 @@ void Explorer::explore() {
 
     // get the closest frontier
     auto frontierToNavigate = closestFrontier(frontiersXY);
+
+    // tell the action client that we want to spin a thread by default
+    MoveBaseClient ac("move_base", true);
+
+    // wait for the action server to come up
+    while (!ac.waitForServer(ros::Duration(5.0))) {
+      ROS_INFO("Waiting for the move_base action server to come up");
+    }
+
+    move_base_msgs::MoveBaseGoal goal;
+
+    goal.target_pose.header.frame_id = "/map";
+    goal.target_pose.header.stamp = ros::Time::now();
+
+    goal.target_pose.pose.position.x = frontierToNavigate.first;
+    goal.target_pose.pose.position.y = frontierToNavigate.second;
+    goal.target_pose.pose.orientation.w = 1.0;
+
+    ROS_INFO("Sending goal");
+    ac.sendGoal(goal);
+
+    ac.waitForResult();
+
+    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+      ROS_INFO("Hooray, the base moved 1 meter forward");
+    else
+      ROS_INFO("The base failed to move forward 1 meter for some reason");
   } else {
     // done with exploration
   }
