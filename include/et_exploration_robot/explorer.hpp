@@ -2,8 +2,10 @@
 #define INCLUDE_ET_EXPLORATION_ROBOT_EXPLORER_HPP_
 
 // ROS Headers
+#include <actionlib/client/simple_action_client.h>
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Twist.h>
+#include <move_base_msgs/MoveBaseAction.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <ros/ros.h>
 #include <tf/transform_listener.h>
@@ -17,6 +19,9 @@
 // Class header files
 #include "et_exploration_robot/grid.hpp"
 #include "et_exploration_robot/map.hpp"
+
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>
+    MoveBaseClient;
 
 class Explorer {
  private:
