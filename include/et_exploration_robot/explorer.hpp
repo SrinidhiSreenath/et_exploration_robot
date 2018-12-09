@@ -42,10 +42,10 @@ class Explorer {
           &frontierClusters);
 
   void visualizeFrontiers(
-      const std::vector<std::pair<float, float>> &frontierXY);
+      const std::vector<std::pair<float, float>> &frontiersXY);
 
   std::pair<float, float> closestFrontier(
-      const std::vector<std::pair<float, float>> &frontierXY);
+      const std::vector<std::pair<float, float>> &frontiersXY);
 
  public:
   explicit Explorer(ros::NodeHandle nh);

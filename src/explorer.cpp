@@ -20,7 +20,7 @@ Explorer::Explorer(ros::NodeHandle nh) : n_(nh) {
       n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 50);
   markerPub_ =
       n_.advertise<visualization_msgs::MarkerArray>("visualization_marker", 10);
-  mapSub_ = n_.subscribe("/map", 50, &Frontier::processMap, this);
+  mapSub_ = n_.subscribe("/map", 50, &Explorer::processMap, this);
 }
 
 Explorer::~Explorer() {}
@@ -72,15 +72,15 @@ void Explorer::determineFrontiers(
   }
 }
 
-void visualizeFrontiers(
-    const std::vector<std::pair<float, float>> &frontierXY) {
+void Explorer::visualizeFrontiers(
+    const std::vector<std::pair<float, float>> &frontiersXY) {
   // Visualize all frontiers
   visualization_msgs::MarkerArray frontiersToViz;
-  frontiersToViz.markers.rsesize(frontiers_.size());
+  frontiersToViz.markers.resize(frontiers_.size());
 
   ROS_INFO_STREAM("Starting marker block");
 
-  for (size_t it = 0; it < frontiers_.size(); it++) {
+  for (size_t it = 0; it < frontiersXY.size(); it++) {
     // Set the frame ID and timestamp.  See the TF tutorials for information
     // on these.
     frontiersToViz.markers[it].header.frame_id = "/map";
@@ -126,11 +126,12 @@ void visualizeFrontiers(
   markerPub_.publish(frontiersToViz);
 }
 
-std::pair<float, float> closestFrontier(
-    const std::vector<std::pair<float, float>> &frontierXY) {
+std::pair<float, float> Explorer::closestFrontier(
+    const std::vector<std::pair<float, float>> &frontiersXY) {
   tf::StampedTransform transform;
   try {
-    listener.lookupTransform("/map", "/base_link", ros::Time(0), transform);
+    poseListener_.lookupTransform("/map", "/base_link", ros::Time(0),
+                                  transform);
   } catch (tf::TransformException ex) {
     ROS_ERROR("%s", ex.what());
     ros::Duration(1.0).sleep();
@@ -142,9 +143,9 @@ std::pair<float, float> closestFrontier(
   float distance = std::numeric_limits<float>::max();
 
   auto closestFrontier =
-      std::make_pair(frontierXY[0].first, frontierXY[0].second);
+      std::make_pair(frontiersXY[0].first, frontiersXY[0].second);
 
-  for (const auto &frontier : frontierXY) {
+  for (const auto &frontier : frontiersXY) {
     auto dist = std::hypot(turtleX - frontier.first, turtleY - frontier.second);
     if (dist < distance) {
       distance = dist;
@@ -169,9 +170,9 @@ void Explorer::explore() {
 
   // if frontiers exist, visualise them and calcute the closest frontier to
   // current position of the robot.
-  if (frontiers.size() != 0) {
+  if (frontiers_.size() != 0) {
     // Obtain frontiers in (X,Y) position
-    auto frontiersXY = myMap.gridToCartesian(frontiers);
+    auto frontiersXY = myMap.gridToCartesian(frontiers_);
 
     // visualize the frontiers
     visualizeFrontiers(frontiersXY);
