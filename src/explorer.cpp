@@ -227,16 +227,30 @@ void Explorer::explore() {
     goal.target_pose.pose.position.y = frontierToNavigate.second;
     goal.target_pose.pose.orientation.w = 1.0;
 
-    ROS_INFO("Sending goal");
+    ROS_INFO_STREAM("Sending frontier "
+                    << goal.target_pose.pose.position.x << ", "
+                    << goal.target_pose.pose.position.y << " as goal");
     ac.sendGoal(goal);
 
-    ac.waitForResult();
+    ac.waitForResult(ros::Duration(10.0));
 
-    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-      ROS_INFO("Hooray, the base moved 1 meter forward");
-    else
-      ROS_INFO("The base failed to move forward 1 meter for some reason");
+    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+      ROS_INFO("The turtlebot succesfully reached the frontier");
+    } else if (ac.getState() != actionlib::SimpleClientGoalState::SUCCEEDED &&
+               !isDiscardedFrontier(frontierToNavigate)) {
+      ROS_WARN(
+          "The turtlebot could not reach the frontier. Ignoring the frontier");
+      notReachablefrontiers_.push_back(frontierToNavigate);
+    } else if (ac.getState() != actionlib::SimpleClientGoalState::SUCCEEDED &&
+               isDiscardedFrontier(frontierToNavigate)) {
+      ROS_WARN(
+          "The remaining frontiers cannot be reached. Ending "
+          "exploration!");
+      ros::shutdown();
+    }
   } else {
     // done with exploration
+    ROS_INFO("Exploration has finished!");
+    ros::shutdown();
   }
 }
