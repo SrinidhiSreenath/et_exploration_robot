@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 
 // ROS Headers
+#include <nav_msgs/MapMetaData.h>
+#include <nav_msgs/OccupancyGrid.h>
 #include <ros/ros.h>
 
 // CPP Headers
@@ -15,19 +17,21 @@
 
 class MapTest : public ::testing::Test {
  public:
-  nav_msgs::OccupancyGridPtr = myCustomMap(new nav_msgs::OccupancyGrid);
-  geometry_msgs::Pose mapOrigin;
+  nav_msgs::MapMetaData metaData;
   Map myMap;
 
-  void setup() {
-    myCustomMap->info.resolution = 2.5;
-    myCustomMap->info.width = 5;
-    myCustomMap->info.height = 5;
+  void SetUp() {
+    nav_msgs::OccupancyGridPtr myCustomMap(new nav_msgs::OccupancyGrid);
 
-    mapOrigin.position.x = -4.2;
-    mapOrigin.position.y = -6.3;
+    metaData.origin.position.x = -4.2;
+    metaData.origin.position.y = -6.3;
+    metaData.origin.orientation.w = 1;
 
-    myCustomMap->info.origin = mapOrigin;
+    metaData.resolution = 2.5;
+    metaData.width = 5;
+    metaData.height = 5;
+
+    myCustomMap->info = metaData;
 
     myCustomMap->data = {0, 0,  0, 0, 0,   0, 0, 100, 0, 0, -1, 0, 100,
                          0, -1, 0, 0, 100, 0, 0, 0,   0, 0, 0,  0};
@@ -35,62 +39,46 @@ class MapTest : public ::testing::Test {
     myMap.initialize(myCustomMap);
   }
 
-  void teardown() {}
+  void TearDown() {}
 };
 
-TEST_F(MapTest, testMap) {
-  // get frontier clusters
-  auto clusters = myMap.getFrontierClusters();
+TEST_F(MapTest, testInitializationAndUpdationOfMap) {
+  auto dimensions = myMap.getMapDimensions();
+  std::vector<uint32_t> dim = {5, 5};
 
-  ASSERT_EQ(clusters.size(), 2);
-  ASSERT_EQ(clusters[0].size(), 5);  // check
-  ASSERT_EQ(clusters[1].size(), 5);
+  ASSERT_EQ(dimensions, dim);
 
-  uint32_t frontierHeight1, frontierWidth1, frontierHeight2, frontierWidth2;
+  auto param = myMap.getMapParameters();
 
-  size_t i = 0;
+  ASSERT_EQ(param.first, 2.5);
+  ASSERT_EQ(param.second.position.x, -4.2);
+  ASSERT_EQ(param.second.position.y, -6.3);
 
-  for (auto cluster : clusters) {
-    uint32_t h = 0;
-    uint32_t w = 0;
-    for (auto clusterPoint : cluster) {
-      h += clusterPoint.first;
-      w += clusterPoint.second;
-    }
-    i++;
-    if (i == 1) {
-      frontierHeight1 = h;
-      frontierWidth1 = w;
-    } else {
-      frontierHeight2 = h;
-      frontierWidth2 = w;
-    }
-  }
+  nav_msgs::OccupancyGridPtr myUpdatedMap(new nav_msgs::OccupancyGrid);
 
-  frontierHeight1 /= clusters[0].size();
-  frontierWidth1 /= clusters[0].size();
+  metaData.origin.position.x = 5.6;
+  metaData.origin.position.y = 8.9;
+  metaData.origin.orientation.w = 1;
 
-  frontierHeight2 /= clusters[1].size();
-  frontierWidth2 /= clusters[1].size();
+  metaData.resolution = 7.5;
+  metaData.width = 7;
+  metaData.height = 8;
 
-  ASSERT_EQ(frontierHeight1, 2);
-  ASSERT_EQ(frontierWidth1, 0);
+  myUpdatedMap->info = metaData;
 
-  ASSERT_EQ(frontierHeight2, 2);
-  ASSERT_EQ(frontierWidth2, 3);
+  myUpdatedMap->data = {0, 0,  0, 0, 0,   0, 0, 100, 0, 0, -1, 0, 100,
+                        0, -1, 0, 0, 100, 0, 0, 0,   0, 0, 0,  0};
 
-  auto first = std::make_pair(frontierHeight1, frontierWidth1);
-  auto second = std::make_pair(frontierHeight2, frontierWidth2);
+  myMap.updateOccupancyMap(myUpdatedMap);
 
-  auto frontiers = {first, second};
+  auto updatedDimensions = myMap.getMapDimensions();
+  std::vector<uint32_t> updatedDim = {8, 7};
 
-  auto frontiersxy = myMap.gridToCartesian(frontiers);
+  ASSERT_EQ(updatedDimensions, updatedDim);
 
-  ASSERT_EQ(frontierxy.size(), 2);
+  auto updatedParam = myMap.getMapParameters();
 
-  ASSERT_EQ(frontierxy[0].first, -4.2);
-  ASSERT_EQ(frontierxy[0].second, -1.3);
-
-  ASSERT_EQ(frontierxy[1].first, 3.3);
-  ASSERT_EQ(frontierxy[1].second, -1.3);
+  ASSERT_EQ(updatedParam.first, 7.5);
+  ASSERT_EQ(updatedParam.second.position.x, 5.6);
+  ASSERT_EQ(updatedParam.second.position.y, 8.9);
 }
