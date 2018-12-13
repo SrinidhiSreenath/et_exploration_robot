@@ -21,7 +21,6 @@ class Map {
   float mapResolution_;
 
   geometry_msgs::Pose mapOrigin_;
-  geometry_msgs::Pose gridOriginCellPose_;
 
   std::vector<std::vector<Grid>> occupancyGrid_;
 
