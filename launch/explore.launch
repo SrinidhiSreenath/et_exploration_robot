@@ -1,0 +1,12 @@
+<launch>
+	<include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch">
+    <arg name="world_file" value="$(find et_exploration_robot)/launch/worlds/myRoom.world"/>
+	</include>
+
+    <include file="$(find turtlebot_gazebo)/launch/gmapping_demo.launch"/>
+ 	
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find et_exploration_robot)/rviz/myRoom.rviz"/>
+	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+
+	<node pkg = "et_exploration_robot" type = "explorer" name = "explorer" output = "screen" launch-prefix = "xterm -e"/>
+</launch>
