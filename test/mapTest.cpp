@@ -54,6 +54,14 @@ TEST_F(MapTest, testInitializationAndUpdationOfMap) {
   ASSERT_EQ(param.second.position.x, -4.2);
   ASSERT_EQ(param.second.position.y, -6.3);
 
+  auto occpancyGrid = myMap.getOccupancyGrid();
+  auto prob = occpancyGrid[2][2].getProbability();
+  auto prob1 = occpancyGrid[2][0].getProbability();
+  auto prob2 = occpancyGrid[2][4].getProbability();
+
+  ASSERT_EQ(prob, 100);
+  ASSERT_EQ(prob1, prob2);
+
   nav_msgs::OccupancyGridPtr myUpdatedMap(new nav_msgs::OccupancyGrid);
 
   metaData.origin.position.x = 5.6;
@@ -61,18 +69,17 @@ TEST_F(MapTest, testInitializationAndUpdationOfMap) {
   metaData.origin.orientation.w = 1;
 
   metaData.resolution = 7.5;
-  metaData.width = 7;
-  metaData.height = 8;
+  metaData.width = 4;
+  metaData.height = 3;
 
   myUpdatedMap->info = metaData;
 
-  myUpdatedMap->data = {0, 0,  0, 0, 0,   0, 0, 100, 0, 0, -1, 0, 100,
-                        0, -1, 0, 0, 100, 0, 0, 0,   0, 0, 0,  0};
+  myUpdatedMap->data = {0, 0, 0, 0, 0, 0, 100, 0, -1, 0, 100, 0};
 
   myMap.updateOccupancyMap(myUpdatedMap);
 
   auto updatedDimensions = myMap.getMapDimensions();
-  std::vector<uint32_t> updatedDim = {8, 7};
+  std::vector<uint32_t> updatedDim = {3, 4};
 
   ASSERT_EQ(updatedDimensions, updatedDim);
 
@@ -81,4 +88,67 @@ TEST_F(MapTest, testInitializationAndUpdationOfMap) {
   ASSERT_EQ(updatedParam.first, 7.5);
   ASSERT_EQ(updatedParam.second.position.x, 5.6);
   ASSERT_EQ(updatedParam.second.position.y, 8.9);
+}
+
+TEST_F(MapTest, testFrontierClusters) {
+  // get frontier clusters
+  auto clusters = myMap.getFrontierClusters();
+
+  ASSERT_EQ(clusters.size(), 2);
+  ASSERT_EQ(clusters[0].size(), 5);
+  ASSERT_EQ(clusters[1].size(), 5);
+}
+
+TEST_F(MapTest, testFrontierClustersCentroid) {
+  auto clusters = myMap.getFrontierClusters();
+
+  uint32_t frontierHeight1, frontierWidth1, frontierHeight2, frontierWidth2;
+
+  size_t i = 0;
+
+  for (auto cluster : clusters) {
+    uint32_t h = 0;
+    uint32_t w = 0;
+    for (auto clusterPoint : cluster) {
+      h += clusterPoint.first;
+      w += clusterPoint.second;
+    }
+    i++;
+    if (i == 1) {
+      frontierHeight1 = h;
+      frontierWidth1 = w;
+    } else {
+      frontierHeight2 = h;
+      frontierWidth2 = w;
+    }
+  }
+
+  frontierHeight1 /= clusters[0].size();
+  frontierWidth1 /= clusters[0].size();
+
+  frontierHeight2 /= clusters[1].size();
+  frontierWidth2 /= clusters[1].size();
+
+  ASSERT_EQ(frontierHeight1, 2);
+  ASSERT_EQ(frontierWidth1, 0);
+
+  ASSERT_EQ(frontierHeight2, 2);
+  ASSERT_EQ(frontierWidth2, 3);
+}
+
+TEST_F(MapTest, testGridToCartesianConversion) {
+  std::pair<uint32_t, uint32_t> first = std::make_pair(2, 0);
+  std::pair<uint32_t, uint32_t> second = std::make_pair(2, 3);
+
+  auto frontiers = {first, second};
+
+  auto frontiersxy = myMap.gridToCartesian(frontiers);
+
+  ASSERT_EQ(frontiersxy.size(), 2);
+
+  ASSERT_NEAR(frontiersxy[0].first, -4.2, 0.1);
+  ASSERT_NEAR(frontiersxy[0].second, -1.3, 0.1);
+
+  ASSERT_NEAR(frontiersxy[1].first, 3.3, 0.1);
+  ASSERT_NEAR(frontiersxy[1].second, -1.3, 0.1);
 }
