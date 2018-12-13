@@ -15,6 +15,18 @@
 Map::Map() {}
 Map::~Map() {}
 
+std::vector<uint32_t> getMapDimensions() {
+  std::vector<uint32_t> mapDimensions{mapHeight_, mapWidth_};
+  return mapDimensions;
+}
+
+std::pair<float, geometry_msgs::Pose> getMapParameters() {
+  auto mapParams = std::make_pair(mapResolution_, mapOrigin_);
+  return mapParams;
+}
+
+std::vector<std::vector<Grid>> getOccupancyGrid() { return occupancyGrid_; }
+
 bool Map::isFrontierGrid(const std::pair<uint32_t, uint32_t> &gridState) {
   for (int x = gridState.first - 1; x <= gridState.first + 1; ++x) {
     for (int y = gridState.second - 1; y <= gridState.second + 1; ++y) {

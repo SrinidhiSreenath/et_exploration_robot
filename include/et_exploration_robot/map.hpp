@@ -35,6 +35,12 @@ class Map {
   Map();
   ~Map();
 
+  std::vector<uint32_t> getMapDimensions();
+
+  std::pair<float, geometry_msgs::Pose> getMapParameters();
+
+  std::vector<std::vector<Grid>> getOccupancyGrid();
+
   void initialize(const nav_msgs::OccupancyGrid::ConstPtr &map);
 
   void updateOccupancyMap(const nav_msgs::OccupancyGrid::ConstPtr &map);
