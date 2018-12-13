@@ -36,6 +36,8 @@ class Explorer {
   bool mapInit_ = false;
   std::vector<std::pair<uint32_t, uint32_t>> frontiers_;
 
+  std::vector<std::pair<float, float>> notReachablefrontiers_;
+
   uint32_t shape = visualization_msgs::Marker::CUBE;
 
   void processMap(const nav_msgs::OccupancyGrid::ConstPtr &map);
@@ -48,6 +50,8 @@ class Explorer {
 
   void visualizeFrontiers(
       const std::vector<std::pair<float, float>> &frontiersXY);
+
+  bool isDiscardedFrontier(const std::pair<float, float> &frontier);
 
   std::pair<float, float> closestFrontier(
       const std::vector<std::pair<float, float>> &frontiersXY);

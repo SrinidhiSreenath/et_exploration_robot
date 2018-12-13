@@ -20,15 +20,14 @@
 Explorer::Explorer(ros::NodeHandle nh) : n_(nh) {
   velocityPub_ =
       n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 50);
-  mapSub_ = n_.subscribe("/map", 50, &Explorer::processMap, this);
+  mapSub_ = n_.subscribe("/map", 20, &Explorer::processMap, this);
   markerPub_ = n_.advertise<visualization_msgs::MarkerArray>(
-      "/visualization_marker_array", 10);
+      "/visualization_marker_array", 1);
 }
 
 Explorer::~Explorer() {}
 
 void Explorer::processMap(const nav_msgs::OccupancyGrid::ConstPtr &map) {
-  ROS_INFO_STREAM("Map callback");
   if (!mapInit_) {
     mapInit_ = true;
     myMap.initialize(map);
@@ -39,16 +38,29 @@ void Explorer::processMap(const nav_msgs::OccupancyGrid::ConstPtr &map) {
 
 void Explorer::revolve() {
   vel_.linear.x = 0.0;
+  vel_.linear.y = 0.0;
+  vel_.linear.z = 0.0;
+  vel_.angular.x = 0.0;
+  vel_.angular.y = 0.0;
   vel_.angular.z = -0.628319;
+
+  ros::Rate rate(10);
 
   auto current = ros::Time::now();
 
-  ros::Time revolveTime = current + ros::Duration(10.0);
+  ros::Duration waitTime = ros::Duration(10.0);
+  ros::Time revolveTime = current + waitTime;
 
-  while (ros::Time::now() < revolveTime && ros::ok()) {
-    ROS_INFO_STREAM("Current time: " << ros::Time::now());
+  while (ros::Time::now() < revolveTime) {
     velocityPub_.publish(vel_);
+    rate.sleep();
   }
+
+  vel_.linear.x = 0.0;
+  vel_.linear.y = 0.0;
+  vel_.linear.z = 0.0;
+  vel_.angular.x = 0.0;
+  vel_.angular.y = 0.0;
   vel_.angular.z = 0.0;
   velocityPub_.publish(vel_);
 }
@@ -56,6 +68,7 @@ void Explorer::revolve() {
 void Explorer::determineFrontiers(
     const std::vector<std::vector<std::pair<uint32_t, uint32_t>>>
         &frontierClusters) {
+  // ROS_INFO_STREAM("Total clusters: " << frontierClusters.size());
   // Calculate centroid of each cluster
   for (auto cluster : frontierClusters) {
     if (cluster.size() > 20) {
@@ -80,7 +93,7 @@ void Explorer::visualizeFrontiers(
   visualization_msgs::MarkerArray frontiersToViz;
   frontiersToViz.markers.resize(frontiers_.size());
 
-  ROS_INFO_STREAM("Frontiers: " << frontiersXY.size());
+  ROS_INFO_STREAM("Number of Frontiers: " << frontiersXY.size());
 
   for (size_t it = 0; it < frontiersXY.size(); it++) {
     // Set the frame ID and timestamp.  See the TF tutorials for information
@@ -128,6 +141,15 @@ void Explorer::visualizeFrontiers(
   markerPub_.publish(frontiersToViz);
 }
 
+bool Explorer::isDiscardedFrontier(const std::pair<float, float> &frontier) {
+  for (const auto &discardedFrontier : notReachablefrontiers_) {
+    if (frontier == discardedFrontier) {
+      return true;
+    }
+  }
+  return false;
+}
+
 std::pair<float, float> Explorer::closestFrontier(
     const std::vector<std::pair<float, float>> &frontiersXY) {
   tf::StampedTransform transform;
@@ -141,8 +163,6 @@ std::pair<float, float> Explorer::closestFrontier(
 
   auto turtleX = transform.getOrigin().x();
   auto turtleY = transform.getOrigin().y();
-
-  float distance = std::numeric_limits<float>::max();
 
   auto closestFrontier =
       std::make_pair(frontiersXY[0].first, frontiersXY[0].second);
