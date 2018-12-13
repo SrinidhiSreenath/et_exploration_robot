@@ -11,13 +11,14 @@ int main(int argc, char **argv) {
   Explorer curiosity(nh);
 
   ros::Rate loop_rate(10);
-  loop_rate.sleep();
 
-  // explore.revolve();
   ros::spinOnce();
+  ros::Duration(10).sleep();
+
   while (ros::ok()) {
     ros::spinOnce();
     curiosity.explore();
+    loop_rate.sleep();
   }
 
   return 0;
