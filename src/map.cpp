@@ -16,8 +16,8 @@ Map::Map() {}
 Map::~Map() {}
 
 bool Map::isFrontierGrid(const std::pair<uint32_t, uint32_t> &gridState) {
-  for (size_t x = gridState.first - 1; x <= gridState.first + 1; ++x) {
-    for (size_t y = gridState.second - 1; y <= gridState.second + 1; ++y) {
+  for (int x = gridState.first - 1; x <= gridState.first + 1; ++x) {
+    for (int y = gridState.second - 1; y <= gridState.second + 1; ++y) {
       if (x >= 0 && x < mapHeight_ && y >= 0 && y < mapWidth_ &&
           occupancyGrid_[x][y].getProbability() == -1) {
         return true;
@@ -28,8 +28,8 @@ bool Map::isFrontierGrid(const std::pair<uint32_t, uint32_t> &gridState) {
 }
 
 void Map::determineFrontierGrids() {
-  for (size_t i = 0; i < mapHeight_; i++) {
-    for (size_t j = 0; j < mapWidth_; j++) {
+  for (size_t i = 0; i < occupancyGrid_.size(); i++) {
+    for (size_t j = 0; j < occupancyGrid_[0].size(); j++) {
       // If grid is free
       if (occupancyGrid_[i][j].getProbability() == 0) {
         auto state = occupancyGrid_[i][j].getGridState();
@@ -44,11 +44,10 @@ void Map::determineFrontierGrids() {
 
 std::vector<std::vector<std::pair<uint32_t, uint32_t>>>
 Map::clusterFrontierGrids() {
-  ROS_INFO_STREAM("clusterFrontierGrids start");
   std::vector<std::vector<std::pair<uint32_t, uint32_t>>> frontierGridSet;
   // Left cluster
-  for (size_t i = 0; i < mapHeight_; i++) {
-    for (size_t j = 0; j < mapWidth_; j++) {
+  for (int i = 0; i < occupancyGrid_.size(); i++) {
+    for (int j = 0; j < occupancyGrid_[0].size(); j++) {
       if (occupancyGrid_[i][j].getFrontierStatus()) {
         // 1. Top left grid
         if (i - 1 >= 0 && j - 1 >= 0 &&
@@ -89,8 +88,8 @@ Map::clusterFrontierGrids() {
     }
   }
   // Right cluster i.e top right grid
-  for (size_t i = 0; i < mapHeight_; i++) {
-    for (size_t j = 0; j < mapWidth_; j++) {
+  for (int i = 0; i < occupancyGrid_.size(); i++) {
+    for (int j = 0; j < occupancyGrid_[0].size(); j++) {
       if (occupancyGrid_[i][j].getFrontierStatus()) {
         if (i - 1 >= 0 && j >= 0 &&
             occupancyGrid_[i - 1][j + 1].getClusterNumber() != -1 &&
@@ -103,8 +102,6 @@ Map::clusterFrontierGrids() {
       }
     }
   }
-
-  ROS_INFO_STREAM("clusterFrontierGrids ends");
   return frontierGridSet;
 }
 
@@ -113,9 +110,8 @@ void Map::initialize(const nav_msgs::OccupancyGrid::ConstPtr &map) {
   mapHeight_ = map->info.height;
   mapWidth_ = map->info.width;
   mapResolution_ = map->info.resolution;
-  ROS_INFO_STREAM("Height: " << mapHeight_ << " Width: " << mapWidth_
-                             << " Res: " << mapResolution_);
-  gridOriginCellPose_ = map->info.origin;
+
+  occupancyGrid_.clear();
 
   size_t iter = 0;
 
@@ -141,8 +137,6 @@ void Map::updateOccupancyMap(const nav_msgs::OccupancyGrid::ConstPtr &map) {
         iter++;
       }
     }
-  } else {
-    initialize(map);
   }
 }
 
@@ -158,8 +152,9 @@ std::vector<std::pair<float, float>> Map::gridToCartesian(
   std::vector<std::pair<float, float>> frontiersXY;
   for (auto frontier : frontiers) {
     float x, y;
-    x = frontier.second * mapResolution_ + gridOriginCellPose_.position.x;
-    y = frontier.first * mapResolution_ + gridOriginCellPose_.position.y;
+
+    x = frontier.second * mapResolution_ + mapOrigin_.position.x;
+    y = frontier.first * mapResolution_ + mapOrigin_.position.y;
 
     auto frontierXY = std::make_pair(x, y);
     frontiersXY.push_back(frontierXY);
