@@ -197,7 +197,12 @@ target_link_libraries(explorer
 if(CATKIN_ENABLE_TESTING)
   find_package(rostest REQUIRED)
 
-  add_rostest_gtest(explorerTests test/explorerTests.launch test/mapTest.cpp test/main.cpp)
+  add_rostest_gtest(explorerTests 
+                    test/explorerTests.launch 
+                    test/gridTest.cpp src/grid.cpp 
+                    test/mapTest.cpp src/map.cpp 
+                    test/explorerTest.cpp src/explorer.cpp
+                    test/mainTest.cpp)
   
   target_link_libraries(explorerTests ${catkin_LIBRARIES})
   
