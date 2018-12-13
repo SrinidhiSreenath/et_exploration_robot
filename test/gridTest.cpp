@@ -11,28 +11,63 @@
 // Grid Class Header file
 #include "et_exploration_robot/grid.hpp"
 
-TEST(GridTest, testSettersAndGetterFunctions) {
+class GridTest : public ::testing::Test {
+ public:
   Grid cell;
   uint32_t height = 256;
   uint32_t width = 273;
   int8_t prob = 7;
   int num = 91939;
 
-  cell.setGridState(height, width);
-  cell.updateProbability(prob);
-  cell.setFrontierStatus(true);
-  cell.setClusterNumber(num);
+  void setup() {}
 
+  void teardown() {}
+};
+
+TEST_F(GridTest, testSettingGridState) {
+  cell.setGridState(height, width);
   auto state = cell.getGridState();
 
-  EXPECT_EQ(state.first, height);
-  EXPECT_EQ(state.second, width);
+  ASSERT_EQ(state.first, height);
+  ASSERT_EQ(state.second, width);
 
+  cell.setGridState(111, 222);
+  auto updatedState = cell.getGridState();
+
+  ASSERT_EQ(updatedState.first, 111);
+  ASSERT_EQ(updatedState.second, 222);
+}
+
+TEST_F(GridTest, testUpdatingGridProbability) {
+  cell.updateProbability(prob);
   auto probability = cell.getProbability();
 
-  EXPECT_EQ(probability, prob);
-  EXPECT_TRUE(cell.getFrontierStatus());
+  ASSERT_EQ(probability, prob);
 
+  cell.updateProbability(18);
+  auto updatedProbability = cell.getProbability();
+
+  ASSERT_EQ(updatedProbability, 18);
+}
+
+TEST_F(GridTest, testSettingGridFrontierStatus) {
+  cell.setFrontierStatus(true);
+
+  ASSERT_TRUE(cell.getFrontierStatus());
+
+  cell.setFrontierStatus(false);
+
+  ASSERT_FALSE(cell.getFrontierStatus());
+}
+
+TEST_F(GridTest, testSettingGridCluster) {
+  cell.setClusterNumber(num);
   auto cluster = cell.getClusterNumber();
-  EXPECT_EQ(cluster, num);
+
+  ASSERT_EQ(cluster, num);
+
+  cell.setClusterNumber(7424);
+  auto updatedCluster = cell.getClusterNumber();
+
+  ASSERT_EQ(updatedCluster, 7424);
 }
