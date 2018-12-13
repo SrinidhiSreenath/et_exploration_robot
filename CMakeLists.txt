@@ -200,6 +200,8 @@ target_link_libraries(explorer
 if(CATKIN_ENABLE_TESTING)
   find_package(rostest REQUIRED)
 
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
+
   add_rostest_gtest(explorerTests 
                     test/explorerTests.launch 
                     test/gridTest.cpp src/grid.cpp 
