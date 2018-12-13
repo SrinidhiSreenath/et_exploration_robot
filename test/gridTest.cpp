@@ -19,9 +19,9 @@ class GridTest : public ::testing::Test {
   int8_t prob = 7;
   int num = 91939;
 
-  void setup() {}
+  void SetUp() {}
 
-  void teardown() {}
+  void TearDown() {}
 };
 
 TEST_F(GridTest, testSettingGridState) {
