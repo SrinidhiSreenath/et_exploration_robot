@@ -167,11 +167,19 @@ std::pair<float, float> Explorer::closestFrontier(
   auto closestFrontier =
       std::make_pair(frontiersXY[0].first, frontiersXY[0].second);
 
+  if (frontiersXY.size() == 1) {
+    return closestFrontier;
+  }
+
+  float distance = std::numeric_limits<float>::max();
   for (const auto &frontier : frontiersXY) {
-    auto dist = std::hypot(turtleX - frontier.first, turtleY - frontier.second);
-    if (dist < distance) {
-      distance = dist;
-      closestFrontier = std::make_pair(frontier.first, frontier.second);
+    if (!isDiscardedFrontier(frontier)) {
+      auto dist =
+          std::hypot(turtleX - frontier.first, turtleY - frontier.second);
+      if (dist < distance && dist > 1) {
+        distance = dist;
+        closestFrontier = std::make_pair(frontier.first, frontier.second);
+      }
     }
   }
   return closestFrontier;
