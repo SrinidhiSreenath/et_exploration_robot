@@ -129,7 +129,12 @@ void Map::initialize(const nav_msgs::OccupancyGrid::ConstPtr &map) {
 }
 
 void Map::updateOccupancyMap(const nav_msgs::OccupancyGrid::ConstPtr &map) {
-  if (mapWidth_ == map->info.width && mapHeight_ == map->info.height) {
+  if (mapWidth_ != map->info.width || mapHeight_ != map->info.height ||
+      mapOrigin_.position.x != map->info.origin.position.x ||
+      mapOrigin_.position.y != map->info.origin.position.y ||
+      mapResolution_ != map->info.resolution) {
+    initialize(map);
+  } else {
     size_t iter = 0;
     for (size_t i = 0; i < mapHeight_; i++) {
       for (size_t j = 0; j < mapWidth_; j++) {
