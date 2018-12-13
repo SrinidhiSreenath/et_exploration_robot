@@ -57,7 +57,7 @@ class Explorer {
       const std::vector<std::pair<float, float>> &frontiersXY);
 
  public:
-  explicit Explorer(ros::NodeHandle nh);
+  explicit Explorer(const ros::NodeHandle &nh);
 
   ~Explorer();
 

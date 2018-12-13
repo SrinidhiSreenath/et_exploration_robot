@@ -17,7 +17,7 @@
 #include "et_exploration_robot/grid.hpp"
 #include "et_exploration_robot/map.hpp"
 
-Explorer::Explorer(ros::NodeHandle nh) : n_(nh) {
+Explorer::Explorer(const ros::NodeHandle &nh) : n_(nh) {
   velocityPub_ =
       n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 50);
   mapSub_ = n_.subscribe("/map", 20, &Explorer::processMap, this);
