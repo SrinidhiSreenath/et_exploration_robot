@@ -30,8 +30,10 @@ std::vector<std::vector<Grid>> Map::getOccupancyGrid() {
 }
 
 bool Map::isFrontierGrid(const std::pair<uint32_t, uint32_t> &gridState) {
-  for (int x = gridState.first - 1; x <= gridState.first + 1; ++x) {
-    for (int y = gridState.second - 1; y <= gridState.second + 1; ++y) {
+  int first = gridState.first;
+  int second = gridState.second;
+  for (int x = first - 1; x <= first + 1; ++x) {
+    for (int y = second - 1; y <= second + 1; ++y) {
       if (x >= 0 && x < mapHeight_ && y >= 0 && y < mapWidth_ &&
           occupancyGrid_[x][y].getProbability() == -1) {
         return true;
@@ -49,6 +51,8 @@ void Map::determineFrontierGrids() {
         auto state = occupancyGrid_[i][j].getGridState();
         auto status = isFrontierGrid(state);
         occupancyGrid_[i][j].setFrontierStatus(status);
+      } else {
+        occupancyGrid_[i][j].setFrontierStatus(false);
       }
       // Initialize the cluster number to -1 for all grids
       occupancyGrid_[i][j].setClusterNumber(-1);
@@ -70,7 +74,26 @@ Map::clusterFrontierGrids() {
           occupancyGrid_[i][j].setClusterNumber(clusterNum);
           auto state = occupancyGrid_[i][j].getGridState();
           frontierGridSet[clusterNum].push_back(state);
-        } else if ((i - 1 >= 0 && j - 1 >= 0 &&  // 2. Both top and left
+        } else if (i - 1 >= 0 &&  // 2. Top grid
+                   occupancyGrid_[i - 1][j].getClusterNumber() != -1) {
+          auto clusterNum = occupancyGrid_[i - 1][j].getClusterNumber();
+          occupancyGrid_[i][j].setClusterNumber(clusterNum);
+          auto state = occupancyGrid_[i][j].getGridState();
+          frontierGridSet[clusterNum].push_back(state);
+        } else if (j - 1 >= 0 &&  // 3. Left grid
+                   occupancyGrid_[i][j - 1].getClusterNumber() != -1) {
+          auto clusterNum = occupancyGrid_[i][j - 1].getClusterNumber();
+          occupancyGrid_[i][j].setClusterNumber(clusterNum);
+          auto state = occupancyGrid_[i][j].getGridState();
+          frontierGridSet[clusterNum].push_back(state);
+        } else if (i - 1 >= 0 && j >= 0 &&  // 4. top right grid
+                   occupancyGrid_[i - 1][j + 1].getClusterNumber() != -1 &&
+                   occupancyGrid_[i][j].getClusterNumber() == -1) {
+          auto clusterNum = occupancyGrid_[i - 1][j + 1].getClusterNumber();
+          occupancyGrid_[i][j].setClusterNumber(clusterNum);
+          auto state = occupancyGrid_[i][j].getGridState();
+          frontierGridSet[clusterNum].push_back(state);
+        } else if ((i - 1 >= 0 && j - 1 >= 0 &&  // 5. Both top and left
                     occupancyGrid_[i - 1][j].getClusterNumber() == -1 &&
                     occupancyGrid_[i][j - 1].getClusterNumber() == -1) ||
                    (i - 1 < 0 && j - 1 >= 0 &&
@@ -85,33 +108,6 @@ Map::clusterFrontierGrids() {
           auto state = occupancyGrid_[i][j].getGridState();
           cluster.push_back(state);
           frontierGridSet.push_back(cluster);
-        } else if (i - 1 >= 0 &&  // 3. Top grid
-                   occupancyGrid_[i - 1][j].getClusterNumber() != -1) {
-          auto clusterNum = occupancyGrid_[i - 1][j].getClusterNumber();
-          occupancyGrid_[i][j].setClusterNumber(clusterNum);
-          auto state = occupancyGrid_[i][j].getGridState();
-          frontierGridSet[clusterNum].push_back(state);
-        } else if (j - 1 >= 0 &&  // 4. Left grid
-                   occupancyGrid_[i][j - 1].getClusterNumber() != -1) {
-          auto clusterNum = occupancyGrid_[i][j - 1].getClusterNumber();
-          occupancyGrid_[i][j].setClusterNumber(clusterNum);
-          auto state = occupancyGrid_[i][j].getGridState();
-          frontierGridSet[clusterNum].push_back(state);
-        }
-      }
-    }
-  }
-  // Right cluster i.e top right grid
-  for (int i = 0; i < occupancyGrid_.size(); i++) {
-    for (int j = 0; j < occupancyGrid_[0].size(); j++) {
-      if (occupancyGrid_[i][j].getFrontierStatus()) {
-        if (i - 1 >= 0 && j >= 0 &&
-            occupancyGrid_[i - 1][j + 1].getClusterNumber() != -1 &&
-            occupancyGrid_[i][j].getClusterNumber() == -1) {
-          auto clusterNum = occupancyGrid_[i - 1][j + 1].getClusterNumber();
-          occupancyGrid_[i][j].setClusterNumber(clusterNum);
-          auto state = occupancyGrid_[i][j].getGridState();
-          frontierGridSet[clusterNum].push_back(state);
         }
       }
     }
