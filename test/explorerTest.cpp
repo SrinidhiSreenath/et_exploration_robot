@@ -10,46 +10,64 @@
 #include <vector>
 
 // Class header files
+#include "et_exploration_robot/explorer.hpp"
 #include "et_exploration_robot/grid.hpp"
 #include "et_exploration_robot/map.hpp"
 
-class ExplorerTest : public ::testing::Test {
+class TestPub {
+ private:
+  geometry_msgs::Twist twist;
+  visualization_msgs::MarkerArray markers;
+
  public:
-  nav_msgs::OccupancyGridPtr = myCustomMap(new nav_msgs::OccupancyGrid);
-  geometry_msgs::Pose mapOrigin;
-  Explorer curiosity;
+  TestPub() {}
+  ~TestPub() {}
 
-  void setup() {
-    myCustomMap->info.resolution = 2.5;
-    myCustomMap->info.width = 5;
-    myCustomMap->info.height = 5;
+  void velCallback(const geometry_msgs::Twist::ConstPtr &msg) { twist = *msg; }
 
-    mapOrigin.position.x = -4.2;
-    mapOrigin.position.y = -6.3;
-
-    myCustomMap->info.origin = mapOrigin;
-
-    myCustomMap->data = {0, 0,  0, 0, 0,   0, 0, 100, 0, 0, -1, 0, 100,
-                         0, -1, 0, 0, 100, 0, 0, 0,   0, 0, 0,  0};
-
-    curiosity.processMap(myCustomMap);
-    curiosity.determineFrontiers();
+  void markerCallback(const visualization_msgs::MarkerArray::ConstPtr &msg) {
+    markers = *msg;
   }
-
-  void teardown() {}
 };
 
-TEST_F(MapTest, testMap) {
-  // get frontier clusters
-  auto frontiers = curiosity.getFrontiers();
+class ExplorerTest : public ::testing::Test {
+ public:
+  ros::NodeHandle nh;
+  TestPub test;
 
-  auto frontiersxy = myMap.gridToCartesian(frontiers);
+  ros::Rate loop_rate = ros::Rate(10);
 
-  ASSERT_EQ(frontierxy.size(), 2);
+  void SetUp() {}
 
-  ASSERT_EQ(frontierxy[0].first, -4.2);
-  ASSERT_EQ(frontierxy[0].second, -1.3);
+  void TearDown() {}
+};
 
-  ASSERT_EQ(frontierxy[1].first, 3.3);
-  ASSERT_EQ(frontierxy[1].second, -1.3);
+TEST_F(ExplorerTest, testVelocityPublisher) {
+  Explorer curiosity(nh);
+
+  ros::Subscriber sub = nh.subscribe("/mobile_base/commands/velocity", 50,
+                                     &TestPub::velCallback, &test);
+  loop_rate.sleep();
+
+  EXPECT_EQ(1, sub.getNumPublishers());
+}
+
+TEST_F(ExplorerTest, testMarkerPublisher) {
+  Explorer curiosity(nh);
+
+  ros::Subscriber sub = nh.subscribe("/visualization_marker_array", 1,
+                                     &TestPub::markerCallback, &test);
+  loop_rate.sleep();
+
+  EXPECT_EQ(1, sub.getNumPublishers());
+}
+
+TEST_F(ExplorerTest, testMapSubscriber) {
+  Explorer curiosity(nh);
+
+  ros::Publisher pub = nh.advertise<nav_msgs::OccupancyGrid>("/map", 20);
+
+  loop_rate.sleep();
+
+  EXPECT_EQ(1, pub.getNumSubscribers());
 }
