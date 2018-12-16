@@ -101,7 +101,7 @@ void Explorer::revolve() {
   auto current = ros::Time::now();
 
   // define the time for which the velocity is published
-  ros::Duration waitTime = ros::Duration(10.0);
+  ros::Duration waitTime = ros::Duration(15.0);
   ros::Time revolveTime = current + waitTime;
 
   while (ros::Time::now() < revolveTime) {
@@ -295,7 +295,7 @@ void Explorer::explore() {
     // send the frontier as goal
     ac.sendGoal(goal);
 
-    ac.waitForResult(ros::Duration(10.0));
+    ac.waitForResult(ros::Duration(20.0));
 
     if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
       ROS_INFO("The turtlebot succesfully reached the frontier");
@@ -314,9 +314,5 @@ void Explorer::explore() {
           "exploration!");
       ros::shutdown();
     }
-  } else {
-    // no frontiers exist done with exploration
-    ROS_INFO("Exploration has finished!");
-    ros::shutdown();
   }
 }
