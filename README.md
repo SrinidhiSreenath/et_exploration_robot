@@ -71,7 +71,11 @@ source devel/setup.bash
 rostest et_exploration_robot explorerTests.launch 
 ```
 ## Results
-*To be updated*
+The top view of the environment is shown below:
+![](https://github.com/SrinidhiSreenath/et_exploration_robot/blob/master/images/gazebo.png)
+
+The map generated after exploration is shown below:
+![](https://github.com/SrinidhiSreenath/et_exploration_robot/blob/master/images/exploration%20map.png)
 
 ## Demo
 *To be updated*
@@ -83,10 +87,39 @@ Solo Iterative Process (SIP) is used in the development of the project. Test Dri
 
 [Sprint Planning Notes](https://docs.google.com/document/d/1q5BGRm5D0xjOvHy-o9cROjHJibJuXT3Z7A8dWZFaC8w/edit?usp=sharing)
 
-## Doxygen Documentation
-
 ## Known Issues/ Bugs
-*To be updated*
+- The [move_base](http://wiki.ros.org/move_base) package is used for send frontiers as goals for the turtlebot to navigate. However, there is a lot of odometry error correction and hence the robot constantly re-orients its pose in the environment causing the map of the exploration to distort. A better localization and navigation package can be used to improve the accuracy of the exploration map being built.
+
+- The class Explorer is a wrapper class and most of its members are private. Hence, unit tests and rostest integration tests were difficult to develop. Need to develop better tests for unit testing the Explorer class and need to develop more integration tests to increase coverage.
+
+## Doxygen Documentation
+Doxygen Documentation generation steps:
+```
+cd <path to package root>
+mkdir Doxygen
+cd Doxygen
+doxygen -g <config_file_name>
+```
+Open configuration file and update the following:
+```
+PROJECT_NAME = 'et_exploration_robot'
+INPUT = ../src ../include/et_exploration_robot/ ../test
+```
+Run and generate the documents by executing the following:
+```
+doxygen <config_file_name>
+```
 
 ## Coverage
-*To be updated*
+Install lcov
+```
+sudo apt-get install lcov
+```
+To check for coverage, execute the following commands.
+```
+cd ~/catkin_ws/build
+lcov --directory . --capture --output-file coverage.info
+lcov --remove coverage.info '/opt/*' '/usr/*' '*/devel/*' '*test_*' '*_test*' --output-file coverage.info
+lcov --list coverage.info
+```
+The results are shown below:
