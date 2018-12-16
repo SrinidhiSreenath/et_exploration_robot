@@ -21,6 +21,7 @@ This is a ROS package which needs
 sudo apt-get install ros-kinetic-turtlebot*
 ```
 - [Gazebo](http://gazebosim.org/) version 7.0.0 or above. Installation instructions can be found [here](http://gazebosim.org/tutorials?cat=guided_b&tut=guided_b1).
+- [gmapping](http://wiki.ros.org/gmapping) package is used for obtaining the occupancy grid map. 
 - TurtleBot [rviz_launchers](http://wiki.ros.org/turtlebot_rviz_launchers) and [move_base](http://wiki.ros.org/move_base) packages are required. Run the following command to install them.
 ```
 sudo apt install ros-kinetic-turtlebot-rviz-launchers ros-kinetic-move-base-msgs ros-kinetic-actionlib ros-kinetic-actionlib-msgs
@@ -117,9 +118,10 @@ sudo apt-get install lcov
 ```
 To check for coverage, execute the following commands.
 ```
-cd ~/catkin_ws/build
+cd <path to catkin_ws>/build
 lcov --directory . --capture --output-file coverage.info
 lcov --remove coverage.info '/opt/*' '/usr/*' '*/devel/*' '*test_*' '*_test*' --output-file coverage.info
 lcov --list coverage.info
 ```
 The results are shown below:
+![](https://github.com/SrinidhiSreenath/et_exploration_robot/blob/master/results/coverage.png)
