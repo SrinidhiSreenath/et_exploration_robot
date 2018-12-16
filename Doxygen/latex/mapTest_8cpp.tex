@@ -1,0 +1,146 @@
+\hypertarget{mapTest_8cpp}{}\section{/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/test/map\+Test.cpp File Reference}
+\label{mapTest_8cpp}\index{/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/test/map\+Test.\+cpp@{/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/test/map\+Test.\+cpp}}
+
+
+Unit tests for class \hyperlink{classMap}{Map}.  
+
+
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\\*
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Map\+Meta\+Data.\+h$>$}\\*
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Occupancy\+Grid.\+h$>$}\\*
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$cstdint$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}et\+\_\+exploration\+\_\+robot/grid.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}et\+\_\+exploration\+\_\+robot/map.\+hpp\char`\"{}}\\*
+Include dependency graph for map\+Test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mapTest_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classMapTest}{Map\+Test}
+\begin{DoxyCompactList}\small\item\em Class \hyperlink{classMapTest}{Map\+Test}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{mapTest_8cpp_a5f3421c12d094aef1f16c1f091be0fb9}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Initialization\+And\+Updation\+Of\+Map)
+\begin{DoxyCompactList}\small\item\em Test case to check initialization and updation of occupancy map dimensions and parameters. \end{DoxyCompactList}\item 
+\hyperlink{mapTest_8cpp_af3b36efb03d0f8eac404640b25f7cf12}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Frontier\+Clusters)
+\begin{DoxyCompactList}\small\item\em Test case to check clustering of frontier cells. \end{DoxyCompactList}\item 
+\hyperlink{mapTest_8cpp_a2480a94eed87bfa2fdc65516aaafed79}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Frontier\+Clusters\+Centroid)
+\begin{DoxyCompactList}\small\item\em Test case to validate centroid of each frontier cluster. \end{DoxyCompactList}\item 
+\hyperlink{mapTest_8cpp_a706cb0c20b34cdcb38f74c06d64b6d34}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Grid\+To\+Cartesian\+Conversion)
+\begin{DoxyCompactList}\small\item\em Test case to check conversion from grid coordinates to cartesian coordinates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Unit tests for class \hyperlink{classMap}{Map}. 
+
+\begin{DoxyAuthor}{Author}
+Srinidhi Sreenath (Srinidhi\+Sreenath) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/15/2018 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\hypertarget{mapTest_8cpp_DESCRIPTION}{}\subsection{D\+E\+S\+C\+R\+I\+P\+T\+I\+ON}\label{mapTest_8cpp_DESCRIPTION}
+Test cases to test member functions of class \hyperlink{classMap}{Map}. 
+
+\subsection{Function Documentation}
+\index{map\+Test.\+cpp@{map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!map\+Test.\+cpp@{map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Initialization\+And\+Updation\+Of\+Map)}{TEST_F(MapTest, testInitializationAndUpdationOfMap)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Initialization\+And\+Updation\+Of\+Map}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mapTest_8cpp_a5f3421c12d094aef1f16c1f091be0fb9}{}\label{mapTest_8cpp_a5f3421c12d094aef1f16c1f091be0fb9}
+
+
+Test case to check initialization and updation of occupancy map dimensions and parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classMapTest}{Map\+Test}} & -\/ gtest framwork for test fixtures \\
+\hline
+{\em test\+Initialization\+And\+Updation\+Of\+Map} & -\/ test name\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{map\+Test.\+cpp@{map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!map\+Test.\+cpp@{map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Frontier\+Clusters)}{TEST_F(MapTest, testFrontierClusters)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Frontier\+Clusters}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mapTest_8cpp_af3b36efb03d0f8eac404640b25f7cf12}{}\label{mapTest_8cpp_af3b36efb03d0f8eac404640b25f7cf12}
+
+
+Test case to check clustering of frontier cells. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classMapTest}{Map\+Test}} & -\/ gtest framwork for test fixtures \\
+\hline
+{\em test\+Frontier\+Clusters} & -\/ test name\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{map\+Test.\+cpp@{map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!map\+Test.\+cpp@{map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Frontier\+Clusters\+Centroid)}{TEST_F(MapTest, testFrontierClustersCentroid)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Frontier\+Clusters\+Centroid}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mapTest_8cpp_a2480a94eed87bfa2fdc65516aaafed79}{}\label{mapTest_8cpp_a2480a94eed87bfa2fdc65516aaafed79}
+
+
+Test case to validate centroid of each frontier cluster. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classMapTest}{Map\+Test}} & -\/ gtest framwork for test fixtures \\
+\hline
+{\em test\+Frontier\+Clusters\+Centroid} & -\/ test name\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{map\+Test.\+cpp@{map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!map\+Test.\+cpp@{map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Grid\+To\+Cartesian\+Conversion)}{TEST_F(MapTest, testGridToCartesianConversion)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Grid\+To\+Cartesian\+Conversion}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mapTest_8cpp_a706cb0c20b34cdcb38f74c06d64b6d34}{}\label{mapTest_8cpp_a706cb0c20b34cdcb38f74c06d64b6d34}
+
+
+Test case to check conversion from grid coordinates to cartesian coordinates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classMapTest}{Map\+Test}} & -\/ gtest framwork for test fixtures \\
+\hline
+{\em test\+Grid\+To\+Cartesian\+Conversion} & -\/ test name\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

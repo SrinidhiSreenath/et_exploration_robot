@@ -1,0 +1,110 @@
+\href{https://travis-ci.com/SrinidhiSreenath/et_exploration_robot}{\tt } \href{https://coveralls.io/github/SrinidhiSreenath/et_exploration_robot?branch=master}{\tt } \href{https://opensource.org/licenses/BSD-3-Clause}{\tt }
+
+\subsection*{Overview}
+
+This project aims to develop the software stack using agile software development process to demonstrate the simulation of a Turtle\+Bot that localizes, maps and autonomously explores the environment when introduced in an unknown environment.
+
+Robotic exploration is a problem that deals with maximizing the information of an area of interest using robots. Exploration using robots is advantageous when humans cannot explore an environment due to inaccessibility or dangerous environmental conditions. One of the booming areas of exploration is space exploration where robotic systems are used to explore extraterrestrial bodies.
+
+Currently, most of the extraterrestrial exploration robots are maintained by national space agencies, but with easier and cheaper access to extraterrestrial space, the demand for robots that explore extraterrestrial terrains is going to increase and create a potential market avenue. By developing exploration robots that map unknown environment, one can cater to industries interested in logging space maps and space mining.
+
+The repository is a R\+OS package implementing a simple exploration with a Turtle\+Bot 2 using frontier based exploration method where it uses frontiers as guidance to explore the unknown space. Frontier based exploration is a technique where frontiers are determined and robot exploration is driven by these frontiers. Frontiers are points on the boundary region between open explored space and unexplored space.
+
+\subsection*{Personnel}
+
+\href{https://www.linkedin.com/in/srinidhisreenath/}{\tt Srinidhi Sreenath}. I am a Mechanical engineer currently pursuing Masters in Robotics at the University of Maryland. My areas of interests include Motion Planning and Decision Making for Self Driving Vehicles.
+
+\subsection*{Dependencies}
+
+This is a R\+OS package which needs
+\begin{DoxyItemize}
+\item \href{http://wiki.ros.org/kinetic}{\tt R\+OS Kinetic} to be installed on Ubuntu 16.\+04. Installation instructions are outlined \href{http://wiki.ros.org/kinetic/Installation/Ubuntu}{\tt here}.
+\item \href{https://www.turtlebot.com/}{\tt Turtlebot} packages are required. Run the following command to install all turtlebot related packages. 
+\begin{DoxyCode}
+1 sudo apt-get install ros-kinetic-turtlebot*
+\end{DoxyCode}
+
+\item \href{http://gazebosim.org/}{\tt Gazebo} version 7.\+0.\+0 or above. Installation instructions can be found \href{http://gazebosim.org/tutorials?cat=guided_b&tut=guided_b1}{\tt here}.
+\item Turtle\+Bot \href{http://wiki.ros.org/turtlebot_rviz_launchers}{\tt rviz\+\_\+launchers} and \href{http://wiki.ros.org/move_base}{\tt move\+\_\+base} packages are required. Run the following command to install them. 
+\begin{DoxyCode}
+1 sudo apt install ros-kinetic-turtlebot-rviz-launchers ros-kinetic-move-base-msgs ros-kinetic-actionlib
+       ros-kinetic-actionlib-msgs
+\end{DoxyCode}
+
+\end{DoxyItemize}
+
+\subsubsection*{Package dependences}
+
+The following are the package dependies\+:
+\begin{DoxyItemize}
+\item geometry\+\_\+msgs
+\item nav\+\_\+msgs
+\item roscpp
+\item rospy
+\item sensor\+\_\+msgs
+\item std\+\_\+msgs
+\item visualization\+\_\+msgs
+\item tf
+\item move\+\_\+base
+\item move\+\_\+base\+\_\+msgs
+\item actionlib
+\end{DoxyItemize}
+
+\subsection*{Build}
+
+In your desired directory, please run the following commands. 
+\begin{DoxyCode}
+1 mkdir -p ~/catkin\_ws/src
+2 cd ~/catkin\_ws/
+3 catkin\_make
+4 source devel/setup.bash
+5 cd src/
+6 git clone https://github.com/SrinidhiSreenath/et\_exploration\_robot.git
+7 cd ..
+8 catkin\_make
+\end{DoxyCode}
+ \subsection*{Run}
+
+The launch file in the package needs to be launched for simulation. Please run the following commands to launch the desired nodes\+: 
+\begin{DoxyCode}
+1 cd <path to catkin\_ws>
+2 source devel/setup.bash
+3 roslaunch et\_exploration\_robot explore.launch
+\end{DoxyCode}
+ \subsection*{Tests}
+
+To run the goolgle unit tests and rostest integration tests, run the following command in the catkin workspace\+: 
+\begin{DoxyCode}
+1 catkin\_make run\_tests\_et\_exploration\_robot
+\end{DoxyCode}
+ To run the unit tests using the launch file, run the following commands in the catkin workspace after all the packages are succesfully built. 
+\begin{DoxyCode}
+1 cd <path to catkin\_ws>
+2 source devel/setup.bash
+3 rostest et\_exploration\_robot explorerTests.launch 
+\end{DoxyCode}
+ \subsection*{Results}
+
+{\itshape To be updated}
+
+\subsection*{Demo}
+
+{\itshape To be updated}
+
+\subsection*{Solo Iterative Process (S\+IP)}
+
+Solo Iterative Process (S\+IP) is used in the development of the project. Test Driven Development appoach is used to comply with the short development cycle. The planning and development of the project is done in three sprints.
+
+\href{https://docs.google.com/spreadsheets/d/1y6k_Kw1-uYTfiacjPWWJsFmW3S48nC0fhaB75R_D93A/edit?usp=sharing}{\tt Product backlog, Iteration backlogs, Work log and Sprint Schedule}.
+
+\href{https://docs.google.com/document/d/1q5BGRm5D0xjOvHy-o9cROjHJibJuXT3Z7A8dWZFaC8w/edit?usp=sharing}{\tt Sprint Planning Notes}
+
+\subsection*{Doxygen Documentation}
+
+\subsection*{Known Issues/ Bugs}
+
+{\itshape To be updated}
+
+\subsection*{Coverage}
+
+{\itshape To be updated} 

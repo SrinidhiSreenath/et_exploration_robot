@@ -1,0 +1,94 @@
+\hypertarget{classExplorer}{}\section{Explorer Class Reference}
+\label{classExplorer}\index{Explorer@{Explorer}}
+
+
+Class \hyperlink{classExplorer}{Explorer}.  
+
+
+
+
+{\ttfamily \#include $<$explorer.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classExplorer_a023c50586b065e67868726a337fb56e0}{Explorer} (const ros\+::\+Node\+Handle \&nh)
+\begin{DoxyCompactList}\small\item\em Default constructor for \hyperlink{classExplorer}{Explorer}. Sets up the velocity and marker array publisher topic with R\+OS master and subscribes to occupancy grid map data. \end{DoxyCompactList}\item 
+\hyperlink{classExplorer_aa1b0a71e92e003e9162a5ba99d843392}{$\sim$\+Explorer} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \hyperlink{classExplorer}{Explorer}. \end{DoxyCompactList}\item 
+void \hyperlink{classExplorer_a246ceb49142bbd15bdbdc3b900269294}{explore} ()
+\begin{DoxyCompactList}\small\item\em wrapper funtion to intiate and perform all the necessary actions needed for the exploration of the unknown environment by turtlebot \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{classExplorer}{Explorer}. 
+
+The following class \hyperlink{classExplorer}{Explorer} implements the exploration behavior by determining the frontiers in an unexplored environment and sending navigation goals for a turtlebot. Class \hyperlink{classMap}{Map} is a part of this class. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Explorer@{Explorer}!Explorer@{Explorer}}
+\index{Explorer@{Explorer}!Explorer@{Explorer}}
+\subsubsection[{\texorpdfstring{Explorer(const ros\+::\+Node\+Handle \&nh)}{Explorer(const ros::NodeHandle &nh)}}]{\setlength{\rightskip}{0pt plus 5cm}Explorer\+::\+Explorer (
+\begin{DoxyParamCaption}
+\item[{const ros\+::\+Node\+Handle \&}]{nh}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classExplorer_a023c50586b065e67868726a337fb56e0}{}\label{classExplorer_a023c50586b065e67868726a337fb56e0}
+
+
+Default constructor for \hyperlink{classExplorer}{Explorer}. Sets up the velocity and marker array publisher topic with R\+OS master and subscribes to occupancy grid map data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nh} & as R\+OS nodehandle object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Explorer@{Explorer}!````~Explorer@{$\sim$\+Explorer}}
+\index{````~Explorer@{$\sim$\+Explorer}!Explorer@{Explorer}}
+\subsubsection[{\texorpdfstring{$\sim$\+Explorer()}{~Explorer()}}]{\setlength{\rightskip}{0pt plus 5cm}Explorer\+::$\sim$\+Explorer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classExplorer_aa1b0a71e92e003e9162a5ba99d843392}{}\label{classExplorer_aa1b0a71e92e003e9162a5ba99d843392}
+
+
+Destructor for \hyperlink{classExplorer}{Explorer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Explorer@{Explorer}!explore@{explore}}
+\index{explore@{explore}!Explorer@{Explorer}}
+\subsubsection[{\texorpdfstring{explore()}{explore()}}]{\setlength{\rightskip}{0pt plus 5cm}void Explorer\+::explore (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classExplorer_a246ceb49142bbd15bdbdc3b900269294}{}\label{classExplorer_a246ceb49142bbd15bdbdc3b900269294}
+
+
+wrapper funtion to intiate and perform all the necessary actions needed for the exploration of the unknown environment by turtlebot 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/include/et\+\_\+exploration\+\_\+robot/\hyperlink{explorer_8hpp}{explorer.\+hpp}\item 
+/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/src/\hyperlink{explorer_8cpp}{explorer.\+cpp}\end{DoxyCompactItemize}

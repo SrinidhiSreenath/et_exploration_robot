@@ -1,0 +1,244 @@
+\hypertarget{classGrid}{}\section{Grid Class Reference}
+\label{classGrid}\index{Grid@{Grid}}
+
+
+Class \hyperlink{classGrid}{Grid}.  
+
+
+
+
+{\ttfamily \#include $<$grid.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGrid_a4ac9ff4f63552b4c61ff90fcb35ad66c}{Grid} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \hyperlink{classGrid}{Grid}. \end{DoxyCompactList}\item 
+\hyperlink{classGrid_a3661d0a7f998caaaf8627d7a67072116}{$\sim$\+Grid} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \hyperlink{classGrid}{Grid}. \end{DoxyCompactList}\item 
+void \hyperlink{classGrid_a82ee6491720390d8f57dc776b7eb4a9c}{set\+Grid\+State} (const uint32\+\_\+t \&height, const uint32\+\_\+t \&width)
+\begin{DoxyCompactList}\small\item\em setter function to set the state of the grid cell \end{DoxyCompactList}\item 
+std\+::pair$<$ uint32\+\_\+t, uint32\+\_\+t $>$ \hyperlink{classGrid_a4bb7afc469c8d1113912ecc066426c44}{get\+Grid\+State} ()
+\begin{DoxyCompactList}\small\item\em getter function to obtain the state of the grid cell \end{DoxyCompactList}\item 
+void \hyperlink{classGrid_aba57aa11c35e810c80a47f81e7f8d224}{update\+Probability} (const int8\+\_\+t \&updated\+Probability)
+\begin{DoxyCompactList}\small\item\em setter function to set the probablibility of occupancy of the grid cell \end{DoxyCompactList}\item 
+int8\+\_\+t \hyperlink{classGrid_a8bdbc0a20221a1a3a0118fb032c21901}{get\+Probability} ()
+\begin{DoxyCompactList}\small\item\em getter function to obtain the occupancy probablibility of the grid cell \end{DoxyCompactList}\item 
+void \hyperlink{classGrid_a7e1184291fbc7028c0a50391e5f512f0}{set\+Frontier\+Status} (const bool \&status)
+\begin{DoxyCompactList}\small\item\em setter function to set the frontier status of the grid cell \end{DoxyCompactList}\item 
+bool \hyperlink{classGrid_ae95b1ff42726579e383565945f4044be}{get\+Frontier\+Status} ()
+\begin{DoxyCompactList}\small\item\em getter function to obtain the frontier status of the grid cell \end{DoxyCompactList}\item 
+void \hyperlink{classGrid_a8660a115b70a5b5e0e7bd4d1f1d3385d}{set\+Cluster\+Number} (const int \&num)
+\begin{DoxyCompactList}\small\item\em setter function to set the cluster number of the grid cell \end{DoxyCompactList}\item 
+int \hyperlink{classGrid_acd7fc68759fe10c71d0eac828922a1dc}{get\+Cluster\+Number} ()
+\begin{DoxyCompactList}\small\item\em getter function to obtain the the cluster number of the grid cell \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{classGrid}{Grid}. 
+
+The following class \hyperlink{classGrid}{Grid} stores the information of a single grid cell in the occupancy grid map. Information of the grid cell include grid height, width coordinates, occupancy probability, frontier cell status and frontier cluster number. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Grid@{Grid}!Grid@{Grid}}
+\index{Grid@{Grid}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{Grid()}{Grid()}}]{\setlength{\rightskip}{0pt plus 5cm}Grid\+::\+Grid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_a4ac9ff4f63552b4c61ff90fcb35ad66c}{}\label{classGrid_a4ac9ff4f63552b4c61ff90fcb35ad66c}
+
+
+Default constructor for \hyperlink{classGrid}{Grid}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Grid@{Grid}!````~Grid@{$\sim$\+Grid}}
+\index{````~Grid@{$\sim$\+Grid}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{$\sim$\+Grid()}{~Grid()}}]{\setlength{\rightskip}{0pt plus 5cm}Grid\+::$\sim$\+Grid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_a3661d0a7f998caaaf8627d7a67072116}{}\label{classGrid_a3661d0a7f998caaaf8627d7a67072116}
+
+
+Destructor for \hyperlink{classGrid}{Grid}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Grid@{Grid}!get\+Cluster\+Number@{get\+Cluster\+Number}}
+\index{get\+Cluster\+Number@{get\+Cluster\+Number}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{get\+Cluster\+Number()}{getClusterNumber()}}]{\setlength{\rightskip}{0pt plus 5cm}int Grid\+::get\+Cluster\+Number (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_acd7fc68759fe10c71d0eac828922a1dc}{}\label{classGrid_acd7fc68759fe10c71d0eac828922a1dc}
+
+
+getter function to obtain the the cluster number of the grid cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+integer value. If the cell is not a frontier cell, then returns -\/1 
+\end{DoxyReturn}
+\index{Grid@{Grid}!get\+Frontier\+Status@{get\+Frontier\+Status}}
+\index{get\+Frontier\+Status@{get\+Frontier\+Status}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{get\+Frontier\+Status()}{getFrontierStatus()}}]{\setlength{\rightskip}{0pt plus 5cm}bool Grid\+::get\+Frontier\+Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_ae95b1ff42726579e383565945f4044be}{}\label{classGrid_ae95b1ff42726579e383565945f4044be}
+
+
+getter function to obtain the frontier status of the grid cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean value. True if the grid cell is a frontier cell, false otherwise 
+\end{DoxyReturn}
+\index{Grid@{Grid}!get\+Grid\+State@{get\+Grid\+State}}
+\index{get\+Grid\+State@{get\+Grid\+State}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{get\+Grid\+State()}{getGridState()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ uint32\+\_\+t, uint32\+\_\+t $>$ Grid\+::get\+Grid\+State (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_a4bb7afc469c8d1113912ecc066426c44}{}\label{classGrid_a4bb7afc469c8d1113912ecc066426c44}
+
+
+getter function to obtain the state of the grid cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pair of unsigned integer containing the height and width coordinate of the grid cell 
+\end{DoxyReturn}
+\index{Grid@{Grid}!get\+Probability@{get\+Probability}}
+\index{get\+Probability@{get\+Probability}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{get\+Probability()}{getProbability()}}]{\setlength{\rightskip}{0pt plus 5cm}int8\+\_\+t Grid\+::get\+Probability (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_a8bdbc0a20221a1a3a0118fb032c21901}{}\label{classGrid_a8bdbc0a20221a1a3a0118fb032c21901}
+
+
+getter function to obtain the occupancy probablibility of the grid cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+integer denoting the occupancy probablibility 
+\end{DoxyReturn}
+\index{Grid@{Grid}!set\+Cluster\+Number@{set\+Cluster\+Number}}
+\index{set\+Cluster\+Number@{set\+Cluster\+Number}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{set\+Cluster\+Number(const int \&num)}{setClusterNumber(const int &num)}}]{\setlength{\rightskip}{0pt plus 5cm}void Grid\+::set\+Cluster\+Number (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{num}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_a8660a115b70a5b5e0e7bd4d1f1d3385d}{}\label{classGrid_a8660a115b70a5b5e0e7bd4d1f1d3385d}
+
+
+setter function to set the cluster number of the grid cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & is the integer denoting the cluster number\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Grid@{Grid}!set\+Frontier\+Status@{set\+Frontier\+Status}}
+\index{set\+Frontier\+Status@{set\+Frontier\+Status}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{set\+Frontier\+Status(const bool \&status)}{setFrontierStatus(const bool &status)}}]{\setlength{\rightskip}{0pt plus 5cm}void Grid\+::set\+Frontier\+Status (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{status}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_a7e1184291fbc7028c0a50391e5f512f0}{}\label{classGrid_a7e1184291fbc7028c0a50391e5f512f0}
+
+
+setter function to set the frontier status of the grid cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & is the boolean value denoting whether the grid cell is a frontier cell or not\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Grid@{Grid}!set\+Grid\+State@{set\+Grid\+State}}
+\index{set\+Grid\+State@{set\+Grid\+State}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{set\+Grid\+State(const uint32\+\_\+t \&height, const uint32\+\_\+t \&width)}{setGridState(const uint32_t &height, const uint32_t &width)}}]{\setlength{\rightskip}{0pt plus 5cm}void Grid\+::set\+Grid\+State (
+\begin{DoxyParamCaption}
+\item[{const uint32\+\_\+t \&}]{height, }
+\item[{const uint32\+\_\+t \&}]{width}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_a82ee6491720390d8f57dc776b7eb4a9c}{}\label{classGrid_a82ee6491720390d8f57dc776b7eb4a9c}
+
+
+setter function to set the state of the grid cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em height} & is the unsigned integer denoting the height coordinate of the grid cell in the occupancy map \\
+\hline
+{\em width} & is the unsigned integer denoting the width coordinate of the grid cell in the occupancy map\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Grid@{Grid}!update\+Probability@{update\+Probability}}
+\index{update\+Probability@{update\+Probability}!Grid@{Grid}}
+\subsubsection[{\texorpdfstring{update\+Probability(const int8\+\_\+t \&updated\+Probability)}{updateProbability(const int8_t &updatedProbability)}}]{\setlength{\rightskip}{0pt plus 5cm}void Grid\+::update\+Probability (
+\begin{DoxyParamCaption}
+\item[{const int8\+\_\+t \&}]{updated\+Probability}
+\end{DoxyParamCaption}
+)}\hypertarget{classGrid_aba57aa11c35e810c80a47f81e7f8d224}{}\label{classGrid_aba57aa11c35e810c80a47f81e7f8d224}
+
+
+setter function to set the probablibility of occupancy of the grid cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em updated\+Probability} & is the integer denoting the occupancy probablibility of the grid cell. -\/1 means unexplored, 0 means free and 100 means occupied.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/include/et\+\_\+exploration\+\_\+robot/\hyperlink{grid_8hpp}{grid.\+hpp}\item 
+/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/src/\hyperlink{grid_8cpp}{grid.\+cpp}\end{DoxyCompactItemize}

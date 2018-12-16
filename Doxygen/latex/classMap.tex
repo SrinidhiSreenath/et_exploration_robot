@@ -1,0 +1,220 @@
+\hypertarget{classMap}{}\section{Map Class Reference}
+\label{classMap}\index{Map@{Map}}
+
+
+Class \hyperlink{classMap}{Map}.  
+
+
+
+
+{\ttfamily \#include $<$map.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMap_a0f5ad0fd4563497b4214038cbca8b582}{Map} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \hyperlink{classMap}{Map}. \end{DoxyCompactList}\item 
+\hyperlink{classMap_aa403fbe09394ccf39747588f5168e3b2}{$\sim$\+Map} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \hyperlink{classMap}{Map}. \end{DoxyCompactList}\item 
+std\+::vector$<$ uint32\+\_\+t $>$ \hyperlink{classMap_a0407f962dee93f27fd4a4e463cf0f3b1}{get\+Map\+Dimensions} ()
+\begin{DoxyCompactList}\small\item\em getter function to obtain the dimesions of the occupancy map i.\+e number of cells in height and width of the map \end{DoxyCompactList}\item 
+std\+::pair$<$ float, geometry\+\_\+msgs\+::\+Pose $>$ \hyperlink{classMap_af6dd728dc6d4cb1a7f12968a702781bf}{get\+Map\+Parameters} ()
+\begin{DoxyCompactList}\small\item\em getter function to obtain the parameters of the occupancy map i.\+e resolution and origin of the map \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ \hyperlink{classGrid}{Grid} $>$ $>$ \hyperlink{classMap_adc3926804632dcaa2484c552566f7283}{get\+Occupancy\+Grid} ()
+\begin{DoxyCompactList}\small\item\em getter function to obtain the occupancy grid map \end{DoxyCompactList}\item 
+void \hyperlink{classMap_afc917e8253690d0e3d5b1e31e38ce57d}{initialize} (const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&map)
+\begin{DoxyCompactList}\small\item\em function to process occupancy grid map message published and initialize the map. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a666dee0eae4e9a7a2e9870d51459a561}{update\+Occupancy\+Map} (const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&map)
+\begin{DoxyCompactList}\small\item\em function to update the occupancy grid map message published in case dimensions or map parameters change \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ uint32\+\_\+t, uint32\+\_\+t $>$ $>$ $>$ \hyperlink{classMap_a10129fbf19370e76f5bfdceaa32b6f7a}{get\+Frontier\+Clusters} ()
+\begin{DoxyCompactList}\small\item\em function that obtain the list of clusters of frontier grid cells. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ float, float $>$ $>$ \hyperlink{classMap_a00f7910f42acac4789d81ec024bea6f1}{grid\+To\+Cartesian} (const std\+::vector$<$ std\+::pair$<$ uint32\+\_\+t, uint32\+\_\+t $>$$>$ \&frontiers)
+\begin{DoxyCompactList}\small\item\em function to convert from grid cell coordinates i.\+e height, width to cartesian coordinates i.\+e x,y in the map \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{classMap}{Map}. 
+
+The following class \hyperlink{classMap}{Map} stores the occupancy grid map information and determines the frontiers in the map and also performs clustering of the frontiers into different clusters. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Map@{Map}!Map@{Map}}
+\index{Map@{Map}!Map@{Map}}
+\subsubsection[{\texorpdfstring{Map()}{Map()}}]{\setlength{\rightskip}{0pt plus 5cm}Map\+::\+Map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a0f5ad0fd4563497b4214038cbca8b582}{}\label{classMap_a0f5ad0fd4563497b4214038cbca8b582}
+
+
+Default constructor for \hyperlink{classMap}{Map}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Map@{Map}!````~Map@{$\sim$\+Map}}
+\index{````~Map@{$\sim$\+Map}!Map@{Map}}
+\subsubsection[{\texorpdfstring{$\sim$\+Map()}{~Map()}}]{\setlength{\rightskip}{0pt plus 5cm}Map\+::$\sim$\+Map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_aa403fbe09394ccf39747588f5168e3b2}{}\label{classMap_aa403fbe09394ccf39747588f5168e3b2}
+
+
+Destructor for \hyperlink{classMap}{Map}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Map@{Map}!get\+Frontier\+Clusters@{get\+Frontier\+Clusters}}
+\index{get\+Frontier\+Clusters@{get\+Frontier\+Clusters}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Frontier\+Clusters()}{getFrontierClusters()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ uint32\+\_\+t, uint32\+\_\+t $>$ $>$ $>$ Map\+::get\+Frontier\+Clusters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a10129fbf19370e76f5bfdceaa32b6f7a}{}\label{classMap_a10129fbf19370e76f5bfdceaa32b6f7a}
+
+
+function that obtain the list of clusters of frontier grid cells. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+container of vectors of frontier grid cells as paired unsigned integers. Each vector denotes a cluster. 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Map\+Dimensions@{get\+Map\+Dimensions}}
+\index{get\+Map\+Dimensions@{get\+Map\+Dimensions}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Map\+Dimensions()}{getMapDimensions()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ uint32\+\_\+t $>$ Map\+::get\+Map\+Dimensions (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a0407f962dee93f27fd4a4e463cf0f3b1}{}\label{classMap_a0407f962dee93f27fd4a4e463cf0f3b1}
+
+
+getter function to obtain the dimesions of the occupancy map i.\+e number of cells in height and width of the map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector of unsigned integer containing the dimensions of the map 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Map\+Parameters@{get\+Map\+Parameters}}
+\index{get\+Map\+Parameters@{get\+Map\+Parameters}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Map\+Parameters()}{getMapParameters()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ float, geometry\+\_\+msgs\+::\+Pose $>$ Map\+::get\+Map\+Parameters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_af6dd728dc6d4cb1a7f12968a702781bf}{}\label{classMap_af6dd728dc6d4cb1a7f12968a702781bf}
+
+
+getter function to obtain the parameters of the occupancy map i.\+e resolution and origin of the map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pair of float and R\+OS message type pose denoting resoltion and origin of map respectively 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Occupancy\+Grid@{get\+Occupancy\+Grid}}
+\index{get\+Occupancy\+Grid@{get\+Occupancy\+Grid}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Occupancy\+Grid()}{getOccupancyGrid()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::vector$<$ {\bf Grid} $>$ $>$ Map\+::get\+Occupancy\+Grid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_adc3926804632dcaa2484c552566f7283}{}\label{classMap_adc3926804632dcaa2484c552566f7283}
+
+
+getter function to obtain the occupancy grid map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+matrix i.\+e vector of vector of grid cells. 
+\end{DoxyReturn}
+\index{Map@{Map}!grid\+To\+Cartesian@{grid\+To\+Cartesian}}
+\index{grid\+To\+Cartesian@{grid\+To\+Cartesian}!Map@{Map}}
+\subsubsection[{\texorpdfstring{grid\+To\+Cartesian(const std\+::vector$<$ std\+::pair$<$ uint32\+\_\+t, uint32\+\_\+t $>$$>$ \&frontiers)}{gridToCartesian(const std::vector< std::pair< uint32_t, uint32_t >> &frontiers)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::pair$<$ float, float $>$ $>$ Map\+::grid\+To\+Cartesian (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ std\+::pair$<$ uint32\+\_\+t, uint32\+\_\+t $>$$>$ \&}]{frontiers}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a00f7910f42acac4789d81ec024bea6f1}{}\label{classMap_a00f7910f42acac4789d81ec024bea6f1}
+
+
+function to convert from grid cell coordinates i.\+e height, width to cartesian coordinates i.\+e x,y in the map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & of paired unsigned integer points where each point denotes a frontier in grid cell coordinates\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector of paired float points where each point denotes a frontier in cartesian coordinates 
+\end{DoxyReturn}
+\index{Map@{Map}!initialize@{initialize}}
+\index{initialize@{initialize}!Map@{Map}}
+\subsubsection[{\texorpdfstring{initialize(const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&map)}{initialize(const nav_msgs::OccupancyGrid::ConstPtr &map)}}]{\setlength{\rightskip}{0pt plus 5cm}void Map\+::initialize (
+\begin{DoxyParamCaption}
+\item[{const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&}]{map}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_afc917e8253690d0e3d5b1e31e38ce57d}{}\label{classMap_afc917e8253690d0e3d5b1e31e38ce57d}
+
+
+function to process occupancy grid map message published and initialize the map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & is a boost shared pointer to a message of type nav\+\_\+msgs\+::\+Occupancy\+Grid\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Map@{Map}!update\+Occupancy\+Map@{update\+Occupancy\+Map}}
+\index{update\+Occupancy\+Map@{update\+Occupancy\+Map}!Map@{Map}}
+\subsubsection[{\texorpdfstring{update\+Occupancy\+Map(const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&map)}{updateOccupancyMap(const nav_msgs::OccupancyGrid::ConstPtr &map)}}]{\setlength{\rightskip}{0pt plus 5cm}void Map\+::update\+Occupancy\+Map (
+\begin{DoxyParamCaption}
+\item[{const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&}]{map}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a666dee0eae4e9a7a2e9870d51459a561}{}\label{classMap_a666dee0eae4e9a7a2e9870d51459a561}
+
+
+function to update the occupancy grid map message published in case dimensions or map parameters change 
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & is a boost shared pointer to a message of type nav\+\_\+msgs\+::\+Occupancy\+Grid\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/include/et\+\_\+exploration\+\_\+robot/\hyperlink{map_8hpp}{map.\+hpp}\item 
+/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/src/\hyperlink{map_8cpp}{map.\+cpp}\end{DoxyCompactItemize}

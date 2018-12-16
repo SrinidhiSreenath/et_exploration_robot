@@ -1,0 +1,123 @@
+\hypertarget{explorerTest_8cpp}{}\section{/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/test/explorer\+Test.cpp File Reference}
+\label{explorerTest_8cpp}\index{/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/test/explorer\+Test.\+cpp@{/home/srinidhi/catkin\+\_\+ws/src/et\+\_\+exploration\+\_\+robot/test/explorer\+Test.\+cpp}}
+
+
+Rostests for class \hyperlink{classExplorer}{Explorer}.  
+
+
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\\*
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$cstdint$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}et\+\_\+exploration\+\_\+robot/explorer.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}et\+\_\+exploration\+\_\+robot/grid.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}et\+\_\+exploration\+\_\+robot/map.\+hpp\char`\"{}}\\*
+Include dependency graph for explorer\+Test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{explorerTest_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classTestPub}{Test\+Pub}
+\begin{DoxyCompactList}\small\item\em Class \hyperlink{classTestPub}{Test\+Pub}. \end{DoxyCompactList}\item 
+class \hyperlink{classExplorerTest}{Explorer\+Test}
+\begin{DoxyCompactList}\small\item\em Class \hyperlink{classExplorerTest}{Explorer\+Test}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{explorerTest_8cpp_a43780f388580a5ccad8263ef48983d00}{T\+E\+S\+T\+\_\+F} (\hyperlink{classExplorerTest}{Explorer\+Test}, test\+Velocity\+Publisher)
+\begin{DoxyCompactList}\small\item\em Test case to check if the velocity publisher is set up with R\+OS Master when the explorer class is initialized. \end{DoxyCompactList}\item 
+\hyperlink{explorerTest_8cpp_a5dc444be2ffdb362062b16e701d8b24b}{T\+E\+S\+T\+\_\+F} (\hyperlink{classExplorerTest}{Explorer\+Test}, test\+Marker\+Publisher)
+\begin{DoxyCompactList}\small\item\em Test case to check if the markerarray publisher is set up with R\+OS Master when the explorer class is initialized. \end{DoxyCompactList}\item 
+\hyperlink{explorerTest_8cpp_ac0f4c28896dde82dd86c3e311c172adc}{T\+E\+S\+T\+\_\+F} (\hyperlink{classExplorerTest}{Explorer\+Test}, test\+Map\+Subscriber)
+\begin{DoxyCompactList}\small\item\em Test case to check if the map subcriber is set up when the explorer class is initialized. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Rostests for class \hyperlink{classExplorer}{Explorer}. 
+
+\begin{DoxyAuthor}{Author}
+Srinidhi Sreenath (Srinidhi\+Sreenath) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/15/2018 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\hypertarget{mapTest_8cpp_DESCRIPTION}{}\subsection{D\+E\+S\+C\+R\+I\+P\+T\+I\+ON}\label{mapTest_8cpp_DESCRIPTION}
+Test cases to test subscribers and publishers in class \hyperlink{classExplorer}{Explorer} 
+
+\subsection{Function Documentation}
+\index{explorer\+Test.\+cpp@{explorer\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!explorer\+Test.\+cpp@{explorer\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Explorer\+Test, test\+Velocity\+Publisher)}{TEST_F(ExplorerTest, testVelocityPublisher)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Explorer\+Test}}]{, }
+\item[{test\+Velocity\+Publisher}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{explorerTest_8cpp_a43780f388580a5ccad8263ef48983d00}{}\label{explorerTest_8cpp_a43780f388580a5ccad8263ef48983d00}
+
+
+Test case to check if the velocity publisher is set up with R\+OS Master when the explorer class is initialized. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classExplorerTest}{Explorer\+Test}} & -\/ gtest framwork for test fixtures \\
+\hline
+{\em test\+Velocity\+Publisher} & -\/ test name\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{explorer\+Test.\+cpp@{explorer\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!explorer\+Test.\+cpp@{explorer\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Explorer\+Test, test\+Marker\+Publisher)}{TEST_F(ExplorerTest, testMarkerPublisher)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Explorer\+Test}}]{, }
+\item[{test\+Marker\+Publisher}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{explorerTest_8cpp_a5dc444be2ffdb362062b16e701d8b24b}{}\label{explorerTest_8cpp_a5dc444be2ffdb362062b16e701d8b24b}
+
+
+Test case to check if the markerarray publisher is set up with R\+OS Master when the explorer class is initialized. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classExplorerTest}{Explorer\+Test}} & -\/ gtest framwork for test fixtures \\
+\hline
+{\em test\+Marker\+Publisher} & -\/ test name\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{explorer\+Test.\+cpp@{explorer\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!explorer\+Test.\+cpp@{explorer\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Explorer\+Test, test\+Map\+Subscriber)}{TEST_F(ExplorerTest, testMapSubscriber)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Explorer\+Test}}]{, }
+\item[{test\+Map\+Subscriber}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{explorerTest_8cpp_ac0f4c28896dde82dd86c3e311c172adc}{}\label{explorerTest_8cpp_ac0f4c28896dde82dd86c3e311c172adc}
+
+
+Test case to check if the map subcriber is set up when the explorer class is initialized. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classExplorerTest}{Explorer\+Test}} & -\/ gtest framwork for test fixtures \\
+\hline
+{\em test\+Map\+Subscriber} & -\/ test name\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

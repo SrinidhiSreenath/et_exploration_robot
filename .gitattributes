@@ -1,0 +1,2 @@
+# Ignore doxygen generated files for GitHub linguist
+Doxygen/* linguist-vendored
