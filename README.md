@@ -26,6 +26,7 @@ sudo apt-get install ros-kinetic-turtlebot*
 ```
 sudo apt install ros-kinetic-turtlebot-rviz-launchers ros-kinetic-move-base-msgs ros-kinetic-actionlib ros-kinetic-actionlib-msgs
 ```
+- [rostest](http://wiki.ros.org/rostest) framework is used for integration tests and [googletest](https://github.com/google/googletest) framework is used for unit tests. 
 
 ### Package dependences
 The following are the package dependies:
@@ -61,7 +62,7 @@ source devel/setup.bash
 roslaunch et_exploration_robot explore.launch
 ```
 ## Tests
-To run the goolgle unit tests and rostest integration tests, run the following command in the catkin workspace:
+To run the google unit tests and rostest integration tests, run the following command in the catkin workspace:
 ```
 catkin_make run_tests_et_exploration_robot
 ```
@@ -79,7 +80,11 @@ The map generated after exploration is shown below:
 ![](https://github.com/SrinidhiSreenath/et_exploration_robot/blob/master/images/exploration%20map.png)
 
 ## Demo
-*To be updated*
+Presentation slides can be found [here](https://docs.google.com/presentation/d/1C33LXyNBP65eRmpaCPGf5pwUPBKB_scPF1pEEWMCHdg/edit?usp=sharing).
+
+The live demo video with build and run instructions can be found below. 
+
+[![](https://img.youtube.com/vi/0oEp19oMftE/maxresdefault.jpg)](https://www.youtube.com/watch?v=0oEp19oMftE)
 
 ## Solo Iterative Process (SIP)
 Solo Iterative Process (SIP) is used in the development of the project. Test Driven Development appoach is used to comply with the short development cycle. The planning and development of the project is done in three sprints. 
