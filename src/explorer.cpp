@@ -1,3 +1,53 @@
+/*******************************************************************************
+ * BSD 3-Clause License
+ * Copyright (c) 2018, Srinidhi Sreenath
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * * Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ ********************************************************************************/
+
+/**
+ *  @file    explorer.cpp
+ *  @author  Srinidhi Sreenath (SrinidhiSreenath)
+ *  @date    12/15/2018
+ *  @version 1.0
+ *
+ *  @brief Explorer class method definitions
+ *
+ *  @section DESCRIPTION
+ *
+ *  Source file for class Explorer which implements the exploration behavior for
+ *  a turtlebot in an unknown environment. The turtlebot intially rotates in the
+ *  environment and determines the frontiers i.e regions between explored and
+ *  unexplored regions. It then navigates to closest reachable frontier and then
+ *  restarts the rotation behavior to determine new frontiers. The behavior
+ *  continues until the exploration is complete.
+ *
+ */
 // ROS Headers
 #include <actionlib/client/simple_action_client.h>
 #include <geometry_msgs/Pose.h>
@@ -30,6 +80,7 @@ Explorer::~Explorer() {}
 void Explorer::processMap(const nav_msgs::OccupancyGrid::ConstPtr &map) {
   if (!mapInit_) {
     mapInit_ = true;
+    ROS_INFO_STREAM("Initializing Map");
     myMap.initialize(map);
   } else {
     myMap.updateOccupancyMap(map);
@@ -37,6 +88,7 @@ void Explorer::processMap(const nav_msgs::OccupancyGrid::ConstPtr &map) {
 }
 
 void Explorer::revolve() {
+  // define a rotation velocity
   vel_.linear.x = 0.0;
   vel_.linear.y = 0.0;
   vel_.linear.z = 0.0;
@@ -48,14 +100,17 @@ void Explorer::revolve() {
 
   auto current = ros::Time::now();
 
+  // define the time for which the velocity is published
   ros::Duration waitTime = ros::Duration(10.0);
   ros::Time revolveTime = current + waitTime;
 
   while (ros::Time::now() < revolveTime) {
+    // publish the velocity
     velocityPub_.publish(vel_);
     rate.sleep();
   }
 
+  // publish a 0 velocity to stop rotation
   vel_.linear.x = 0.0;
   vel_.linear.y = 0.0;
   vel_.linear.z = 0.0;
@@ -68,7 +123,8 @@ void Explorer::revolve() {
 void Explorer::determineFrontiers(
     const std::vector<std::vector<std::pair<uint32_t, uint32_t>>>
         &frontierClusters) {
-  // ROS_INFO_STREAM("Total clusters: " << frontierClusters.size());
+  // ROS_DEBUG_STREAM("Total clusters: " << frontierClusters.size());
+
   // Calculate centroid of each cluster
   for (auto cluster : frontierClusters) {
     if (cluster.size() > 20) {
@@ -154,6 +210,7 @@ std::pair<float, float> Explorer::closestFrontier(
     const std::vector<std::pair<float, float>> &frontiersXY) {
   tf::StampedTransform transform;
   try {
+    // obtain the pose of the turtlebot
     poseListener_.lookupTransform("/map", "/base_link", ros::Time(0),
                                   transform);
   } catch (tf::TransformException ex) {
@@ -171,11 +228,14 @@ std::pair<float, float> Explorer::closestFrontier(
     return closestFrontier;
   }
 
+  // find the closest frontier based on euclidean distance
   float distance = std::numeric_limits<float>::max();
   for (const auto &frontier : frontiersXY) {
     if (!isDiscardedFrontier(frontier)) {
       auto dist =
           std::hypot(turtleX - frontier.first, turtleY - frontier.second);
+      // the distance should also be greater than 1 meter for succesful
+      // navigation
       if (dist < distance && dist > 1) {
         distance = dist;
         closestFrontier = std::make_pair(frontier.first, frontier.second);
@@ -218,6 +278,7 @@ void Explorer::explore() {
       ROS_INFO("Waiting for the move_base action server to come up");
     }
 
+    // define the goal point
     move_base_msgs::MoveBaseGoal goal;
 
     goal.target_pose.header.frame_id = "/map";
@@ -230,6 +291,8 @@ void Explorer::explore() {
     ROS_INFO_STREAM("Sending frontier "
                     << goal.target_pose.pose.position.x << ", "
                     << goal.target_pose.pose.position.y << " as goal");
+
+    // send the frontier as goal
     ac.sendGoal(goal);
 
     ac.waitForResult(ros::Duration(10.0));
@@ -238,18 +301,21 @@ void Explorer::explore() {
       ROS_INFO("The turtlebot succesfully reached the frontier");
     } else if (ac.getState() != actionlib::SimpleClientGoalState::SUCCEEDED &&
                !isDiscardedFrontier(frontierToNavigate)) {
+      // if the navigation is unsuccesful, discard the frontier
       ROS_WARN(
           "The turtlebot could not reach the frontier. Ignoring the frontier");
       notReachablefrontiers_.push_back(frontierToNavigate);
     } else if (ac.getState() != actionlib::SimpleClientGoalState::SUCCEEDED &&
                isDiscardedFrontier(frontierToNavigate)) {
+      // if the navigation is unsuccesful and no more frontiers can be reached
+      // succesfully, then terminate the exploration
       ROS_WARN(
           "The remaining frontiers cannot be reached. Ending "
           "exploration!");
       ros::shutdown();
     }
   } else {
-    // done with exploration
+    // no frontiers exist done with exploration
     ROS_INFO("Exploration has finished!");
     ros::shutdown();
   }
