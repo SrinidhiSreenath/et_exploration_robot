@@ -15,6 +15,8 @@ env:
   matrix:
     - ROS_DISTRO=true  ROS_DISTRO="kinetic"   ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu
     - ROS_DISTRO=true  ROS_DISTRO="kinetic"   ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu
+    - COVERALLS_REPO_TOKEN=zbJEi4porVTydAxuOXeeciYMgwjyEuoOi ROS_CI_COVERAGE=true USE_DEB=true ROS_DISTRO="kinetic" ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu AFTER_SCRIPT='source /root/catkin_ws/devel/setup.bash && cd /root/catkin_ws/build/et_exploration_robot && make coveralls'
+
 matrix:
   allow_failures:
     - env:  ROS_DISTRO="kinetic"   ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu
