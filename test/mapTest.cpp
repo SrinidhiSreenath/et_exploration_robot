@@ -1,3 +1,48 @@
+/*******************************************************************************
+ * BSD 3-Clause License
+ * Copyright (c) 2018, Srinidhi Sreenath
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * * Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ ********************************************************************************/
+
+/**
+ *  @file    mapTest.cpp
+ *  @author  Srinidhi Sreenath (SrinidhiSreenath)
+ *  @date    12/15/2018
+ *  @version 1.0
+ *
+ *  @brief   Unit tests for class Map
+ *
+ *  @section DESCRIPTION
+ *
+ *  Test cases to test member functions of class Map.
+ *
+ */
 // GTest Headers
 #include <gtest/gtest.h>
 
@@ -15,11 +60,27 @@
 #include "et_exploration_robot/grid.hpp"
 #include "et_exploration_robot/map.hpp"
 
+/**
+ *  @brief Class MapTest
+ *
+ *  A class to setup and teardown map class configurations for test fixtures.
+ */
 class MapTest : public ::testing::Test {
- public:
-  nav_msgs::MapMetaData metaData;
-  Map myMap;
+ protected:
+  nav_msgs::MapMetaData
+      metaData;  ///< ROS message of type nav_msgs::MapMetaData to define a
+                 ///< custom map
+  Map myMap;     ///< Object of class map
 
+ public:
+  /**
+   *   @brief  Setup function to prepare for each test fixture. Sets a custom
+   *           map and initializes the map
+   *
+   *   @param  none
+   *
+   *   @return void
+   */
   void SetUp() {
     nav_msgs::OccupancyGridPtr myCustomMap(new nav_msgs::OccupancyGrid);
 
@@ -39,9 +100,25 @@ class MapTest : public ::testing::Test {
     myMap.initialize(myCustomMap);
   }
 
+  /**
+   *   @brief  Tesrdown function to release any resources allocated in SetUp
+   *
+   *   @param  none
+   *
+   *   @return void
+   */
   void TearDown() {}
 };
 
+/**
+ *   @brief  Test case to check initialization and updation of occupancy map
+ *           dimensions and parameters
+ *
+ *   @param  MapTest - gtest framwork for test fixtures
+ *   @param  testInitializationAndUpdationOfMap - test name
+ *
+ *   @return void
+ */
 TEST_F(MapTest, testInitializationAndUpdationOfMap) {
   auto dimensions = myMap.getMapDimensions();
   std::vector<uint32_t> dim = {5, 5};
@@ -90,6 +167,14 @@ TEST_F(MapTest, testInitializationAndUpdationOfMap) {
   ASSERT_EQ(updatedParam.second.position.y, 8.9);
 }
 
+/**
+ *   @brief  Test case to check clustering of frontier cells
+ *
+ *   @param  MapTest - gtest framwork for test fixtures
+ *   @param  testFrontierClusters - test name
+ *
+ *   @return void
+ */
 TEST_F(MapTest, testFrontierClusters) {
   // get frontier clusters
   auto clusters = myMap.getFrontierClusters();
@@ -99,6 +184,14 @@ TEST_F(MapTest, testFrontierClusters) {
   ASSERT_EQ(clusters[1].size(), 5);
 }
 
+/**
+ *   @brief  Test case to validate centroid of each frontier cluster
+ *
+ *   @param  MapTest - gtest framwork for test fixtures
+ *   @param  testFrontierClustersCentroid - test name
+ *
+ *   @return void
+ */
 TEST_F(MapTest, testFrontierClustersCentroid) {
   auto clusters = myMap.getFrontierClusters();
 
@@ -106,6 +199,7 @@ TEST_F(MapTest, testFrontierClustersCentroid) {
 
   size_t i = 0;
 
+  // Calculate centroid for each cluster
   for (auto cluster : clusters) {
     uint32_t h = 0;
     uint32_t w = 0;
@@ -136,6 +230,15 @@ TEST_F(MapTest, testFrontierClustersCentroid) {
   ASSERT_EQ(frontierWidth2, 3);
 }
 
+/**
+ *   @brief  Test case to check conversion from grid coordinates to cartesian
+ *           coordinates
+ *
+ *   @param  MapTest - gtest framwork for test fixtures
+ *   @param  testGridToCartesianConversion - test name
+ *
+ *   @return void
+ */
 TEST_F(MapTest, testGridToCartesianConversion) {
   std::pair<uint32_t, uint32_t> first = std::make_pair(2, 0);
   std::pair<uint32_t, uint32_t> second = std::make_pair(2, 3);
