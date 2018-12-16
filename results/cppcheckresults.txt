@@ -1,36 +1,18 @@
 Checking src/explorer.cpp...
-1/8 files checked 9% done
+1/8 files checked 24% done
 Checking src/grid.cpp...
-[src/grid.cpp:8]: (warning) Member variable 'Grid::gridHeight_' is not initialized in the constructor.
-[src/grid.cpp:8]: (warning) Member variable 'Grid::gridWidth_' is not initialized in the constructor.
-[src/grid.cpp:8]: (warning) Member variable 'Grid::OccupancyProbability_' is not initialized in the constructor.
-[src/grid.cpp:8]: (warning) Member variable 'Grid::isFrontierCell_' is not initialized in the constructor.
-[src/grid.cpp:8]: (warning) Member variable 'Grid::clusterNumber_' is not initialized in the constructor.
-2/8 files checked 18% done
+2/8 files checked 30% done
 Checking src/main.cpp...
-3/8 files checked 18% done
+3/8 files checked 37% done
 Checking src/map.cpp...
-[src/map.cpp:15]: (warning) Member variable 'Map::mapWidth' is not initialized in the constructor.
-[src/map.cpp:15]: (warning) Member variable 'Map::mapHeight' is not initialized in the constructor.
-[src/map.cpp:15]: (warning) Member variable 'Map::mapResolution' is not initialized in the constructor.
-[include/et_exploration_robot/map.hpp:28]: (style) Unused private function: 'Map::isFrontierGrid'
-[include/et_exploration_robot/map.hpp:30]: (style) Unused private function: 'Map::determineFrontierGrids'
-[include/et_exploration_robot/map.hpp:33]: (style) Unused private function: 'Map::clusterFrontierGrids'
-4/8 files checked 32% done
+4/8 files checked 55% done
 Checking test/explorerTest.cpp...
-5/8 files checked 51% done
+5/8 files checked 68% done
 Checking test/gridTest.cpp...
-6/8 files checked 63% done
-Checking test/main.cpp...
-7/8 files checked 65% done
+6/8 files checked 79% done
+Checking test/mainTest.cpp...
+7/8 files checked 84% done
 Checking test/mapTest.cpp...
 8/8 files checked 100% done
-[src/map.cpp:23]: (style) The function 'clusterFrontierGrids' is never used.
-[src/map.cpp:20]: (style) The function 'determineFrontierGrids' is never used.
-[src/explorer.cpp:28]: (style) The function 'explore' is never used.
-[src/map.cpp:18]: (style) The function 'isFrontierGrid' is never used.
-[src/explorer.cpp:20]: (style) The function 'revolve' is never used.
-[test/explorerTest.cpp:22]: (style) The function 'setup' is never used.
-[test/explorerTest.cpp:39]: (style) The function 'teardown' is never used.
-[src/map.cpp:27]: (style) The function 'updateOccupancyMap' is never used.
-
+[test/explorerTest.cpp:135]: (style) The function 'SetUp' is never used.
+[test/explorerTest.cpp:144]: (style) The function 'TearDown' is never used.
