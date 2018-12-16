@@ -60,7 +60,11 @@
 #include "et_exploration_robot/grid.hpp"
 #include "et_exploration_robot/map.hpp"
 
-Map::Map() {}
+Map::Map() {
+  mapWidth_ = 0;
+  mapHeight_ = 0;
+  mapResolution_ = 0.05;
+}
 Map::~Map() {}
 
 std::vector<uint32_t> Map::getMapDimensions() {

@@ -53,7 +53,13 @@
 // Grid Class Header file
 #include "et_exploration_robot/grid.hpp"
 
-Grid::Grid() {}
+Grid::Grid() {
+  gridHeight_ = 0;
+  gridWidth_ = 0;
+  occupancyProbability_ = -1;
+  isFrontierCell_ = false;
+  clusterNumber_ = -1;
+}
 Grid::~Grid() {}
 
 void Grid::setGridState(const uint32_t &height, const uint32_t &width) {

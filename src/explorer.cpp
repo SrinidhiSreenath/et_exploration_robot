@@ -213,7 +213,7 @@ std::pair<float, float> Explorer::closestFrontier(
     // obtain the pose of the turtlebot
     poseListener_.lookupTransform("/map", "/base_link", ros::Time(0),
                                   transform);
-  } catch (tf::TransformException ex) {
+  } catch (tf::TransformException &ex) {
     ROS_ERROR("%s", ex.what());
     ros::Duration(1.0).sleep();
   }
