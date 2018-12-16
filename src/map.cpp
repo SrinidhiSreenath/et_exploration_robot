@@ -1,3 +1,51 @@
+/*******************************************************************************
+ * BSD 3-Clause License
+ * Copyright (c) 2018, Srinidhi Sreenath
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * * Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ ********************************************************************************/
+
+/**
+ *  @file    map.cpp
+ *  @author  Srinidhi Sreenath (SrinidhiSreenath)
+ *  @date    12/15/2018
+ *  @version 1.0
+ *
+ *  @brief Map class definition
+ *
+ *  @section DESCRIPTION
+ *
+ *  Source file for class Map which stores the occupancy grid map information.
+ *  The class also implements methods to determine the frontier grid cells and
+ *  cluster them. It also has helper function to convert from occupancy grid
+ *  coordinates to cartesian coordinates.
+ *
+ */
 // ROS Headers
 #include <geometry_msgs/Pose.h>
 #include <nav_msgs/OccupancyGrid.h>
@@ -63,7 +111,7 @@ void Map::determineFrontierGrids() {
 std::vector<std::vector<std::pair<uint32_t, uint32_t>>>
 Map::clusterFrontierGrids() {
   std::vector<std::vector<std::pair<uint32_t, uint32_t>>> frontierGridSet;
-  // Left cluster
+
   for (int i = 0; i < occupancyGrid_.size(); i++) {
     for (int j = 0; j < occupancyGrid_[0].size(); j++) {
       if (occupancyGrid_[i][j].getFrontierStatus()) {
@@ -100,7 +148,7 @@ Map::clusterFrontierGrids() {
                     occupancyGrid_[i][j - 1].getClusterNumber() == -1) ||
                    (i - 1 >= 0 && j - 1 < 0 &&
                     occupancyGrid_[i - 1][j].getClusterNumber() == -1)) {
-          // New Cluster
+          // Define a new cluster
           size_t clusterNum = frontierGridSet.size();
           occupancyGrid_[i][j].setClusterNumber(clusterNum);
 
